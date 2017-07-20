@@ -541,22 +541,18 @@ $(document).ready(function () {
     });
 });
 
-
-/*
 $(document).ready(function () {
-    $('#highlightBaseline').click(function () {
-        let color = this.checked ? 'pink' : 'black';
-        chart.setTitle({ style: { color: color } });
-    });
-});*/
-
-
-function compareChart() {
-    var compareDiv = $('<div class="compare" col-md-3></div>');
-}
-
-
-var chartDiv = $('<div class="compare col-md-3"></div>');
+    $('#createSnapshot').click(function () {
+        let svgOptions = {
+            chart: {
+                height: 350,
+                width: 450
+            }
+        };
+        let snapshotNumber = $('#snapshots').children().length + 1;
+        $('#snapshots').append('<div class="col-md-6" style="text-align: center;"><h3>Snapshot ' + snapshotNumber + '</h3>' + chart.getSVG(svgOptions) + '</div>');
+    })
+});
 
 function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
 
