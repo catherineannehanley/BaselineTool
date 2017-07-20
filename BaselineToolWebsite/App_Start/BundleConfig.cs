@@ -46,7 +46,9 @@ namespace WebApplication1
             bundles.Add(new ScriptBundle("~/bundles/catherine").Include(
                     "~/Scripts/Plotly/plotly.min.js",
                     "~/Scripts/highcharts/4.2.0/highcharts.js",
-                    "~/Scripts/highcharts/4.2.0/highcharts-more.js"
+                    "~/Scripts/highcharts/4.2.0/highcharts-more.js",
+                    "~/Scripts/highcharts/4.2.0/modules/exporting.js",
+                    "~/Scripts/highcharts/4.2.0/modules/offline-exporting.js"
                 ));
         }
     }
