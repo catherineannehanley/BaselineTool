@@ -7,7 +7,7 @@
     </div>-->
     <div class="row">
         <div class="col-md-12">
-            <button type="button" id="createSnapshot">Create Snapshot</button>
+            
         </div>
     </div>
     <div class="row">
@@ -17,68 +17,86 @@
 
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Snapshots</h1>
-                </div>
-            </div>
-            <div class="row" id="snapshots">             
-            </div>
+            
+            <!--< HERE -->
+
         </div>
         <div class="col-md-2" id="menu">
             <h4>Menu</h4>
-            <!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">CMIP3</button><br />
-            <br />-->
+
+            <button type="button" class="btn btn-secondary" onclick="plotAllModelData()">CMIP3</button>
+            <button type="button" class="btn btn-secondary" onclick="plotSpaghettiData()">Spaghetti</button>
+            
+            <div class="clearfix" style="height: 20px;"></div>
+
             <fieldset>
-                <legend>Data:</legend>
-                <h5>Baseline:</h5>
-                Start:
-                    <input type="text" maxlength="4" id="start" name="Start" /><br>
-                Finish:<br>
-                <input type="text" maxlength="4" id="finish" name="Finish" /><br>
-                <br>
-                <h5>Coverage:</h5>
-                <input type="radio" name="coverage" value="original" checked>Original Data<br>
-                <input type="radio" name="coverage" value="original">Adjusted Data<br>
-                <br>
+                <legend>Data</legend>
+                <h5>Select Baseline:</h5>
+                <input type="text" placeholder="Start" id="start" name="Start" />
+                <input type="text" placeholder="Finish" id="finish"  name="Finish" />
+                
+                <div class="clearfix" style="height: 15px;"></div>
+
+                <h5>Select Coverage:</h5>
+                <label>
+                    <input type="radio" id="originalDataRadio" name="coverage" checked/>Global
+                </label>
+                <label>
+                    <input type="radio" id="coverageDataRadio" name="coverage"/>Adjusted
+                </label>
+ 
+                <div class="clearfix" style="height: 15px;"></div>
+ 
                 <button type="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">Plot</button>
                 <button type="button" class="btn btn-secondary" onclick="plotAllModelData()">Reset</button><br />
             </fieldset>
-            <br />
-            <fieldset>
-                <legend>Presentation:</legend>
+            
+            <div class="clearfix" style="height: 20px;"></div>
+
+            <fieldset id="presentation">
+                <legend>Edit Graph</legend>
 
                 <input id="highlightBaseline" type="checkbox" name="highlightBaseline" value="highlightBaseline">Highlight Baseline<br>
-                Select year range: 
-                   <input type="text" maxlength="4" id="startZoom" name="Start" /><br>
-                Finish:<br>
-                <input type="text" maxlength="4" id="finishZoom" name="Finish" /><br>
-                <br>
-                <button type="button" class="btn btn-secondary btn-block" onclick="updatexAxis()">Update Chart</button>
+                <h5>Select year range: </h5>
+                   <input type="text" placeholder="Start" id="startZoom" name="startZoom" />
+                   <input type="text" placeholder="Finish" id="finishZoom" name="finishZoom" />
+                
                 <div class="clearfix" style="height: 15px;"></div>
-                <button type="button" id="compareCharts" class="btn btn-secondary btn-block" onclick="compareChart()">Compare</button>
-                <div class="clearfix" style="height: 15px;"></div>
-                <button type="button" id="exportChart" class="btn btn-secondary btn-block">Export Chart</button>
 
-                <br>
+                <button type="button" class="btn btn-secondary" onclick="updatexAxis()">Apply</button>
+                <button type="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">Undo</button>
+
             </fieldset>
-            <br />
-            <!--<button type="button" onclick="showUncertainty()">Uncertainty</input>-->
-            <!--<button type="button" onclick="getAverage()">Average</input>-->
-            <!--<button type="button" onclick="">Observed Data</input></button></br>-->
-            <!--<input type="checkbox" name="type" value="HADCRUT4"><label>HADCRUT4</label></input></br>-->
-            <!--<input type="checkbox" name="type" value="CRUTEM4"><label>CRUTEM4</label></input></br>-->
-            <!--<input type="checkbox" name="type" value="HadSST3"><label>HadSST3</label></input></br>-->
-            <fieldset>
-                <legend></legend>
+            
+            <div class="clearfix" style="height: 20px;"></div>
 
-                <br>
-                <button type="button" class="btn btn-secondary" onclick="plotSpaghettiData()">Spaghetti Model</button><br />
+            <fieldset>
+                <legend>Compare</legend>
+                    <button type="button" id="createSnapshot" class="btn btn-secondaryCreate"> Snapshot</button>  
+                    <button type="button" id="clearSnapshot" class="btn btn-secondaryCreate"> Clear</button> 
             </fieldset>
 
         </div>
     </div>
 
+    <div class="row">
+                <div class="col-md-12" id="createdCharts">
+                    <a href="#linkToCreatedCharts"><h4>Created Charts</h4></a>
+                </div>
+            </div>
+            
+    
+                    
+        <div class="row">
+            <a name="linkToCreatedCharts"></a>
+        </div>
+
+            <div                  
+                class="row" id="snapshots"> 
+            </div>
+
+
+            
     <script type="text/javascript" src="Scripts/Visualisations/AboutGraph.js"></script>
 </asp:Content>
 

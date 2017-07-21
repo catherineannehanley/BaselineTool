@@ -12,11 +12,35 @@ body {
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+#start {
+    width: 80px;
 }
+
+#finish {
+    width: 80px;
+}
+
+#startZoom {
+    width: 80px;
+}
+
+#finishZoom {
+    width: 80px;
+}
+
+#originalDataRadio {
+    float: left
+}
+
+#coverageDataRadio {
+    float: left
+}
+
+label {
+    font-weight: normal
+}
+
 
 
 /* Responsive: Portrait tablets and up */
@@ -30,9 +54,24 @@ textarea {
     }
 }
 
+fieldset {
+    margin: .1em;
+
+}
 
 legend {
-    color: green;
+    color: LightSlateGrey;
     font-size: 16px;
     text-align: left;
+    margin-top: .1em;
+    margin-bottom: .4em;    
+}
+
+h5 {
+    margin-top: .6em
+}
+
+createdChart {
+    margin-top: 4em
+
 }

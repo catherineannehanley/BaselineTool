@@ -1,5 +1,7 @@
-﻿$(function() {
+﻿$(function () {
     plotAllModelData();
+    $("#createdCharts").hide();
+
 });
 
 let chart;
@@ -42,6 +44,7 @@ function validateBaselineEntry(baselineStart, baselineFinish) {
     }
 
 }
+
 
 function getModelData() {
     return [
@@ -227,7 +230,7 @@ function getObservedData() {
 };
 
 function getInvisibleObservedData(observedData) {
-    return observedData.map(function(dataPoint) {
+    return observedData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, visible: false
         };
@@ -244,7 +247,7 @@ function getModelDataRanges(modelData) {
         .filter((value, index, array) => array.indexOf(value) === index);
 
     //make array of average temperature vaules for each year
-    var yearlyRanges = years.map(function(year) {
+    var yearlyRanges = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
@@ -279,7 +282,7 @@ function getModelDataAverages(modelData) {
         .filter((value, index, array) => array.indexOf(value) === index);
 
     //make array of average temperature vaules for each year
-    var yearlyAverages = years.map(function(year) {
+    var yearlyAverages = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened));
@@ -302,7 +305,7 @@ function getBaselinedModelData(modelData, baselineStart, baselineFinish) {
     validateBaselineEntry(baselineStart, baselineFinish);
 
     //lmap instead of for loop - eliminates the need to flatten arrays in future
-    let baselinedModelData = modelData.map(function(thisEnsemble) {
+    let baselinedModelData = modelData.map(function (thisEnsemble) {
 
         console.log("selected ensemble " + thisEnsemble);
 
@@ -331,7 +334,7 @@ function getBaselinedModelData(modelData, baselineStart, baselineFinish) {
 
         return {
             name: thisEnsemble.name,
-            data: thisEnsemble.data.map(function(y) {
+            data: thisEnsemble.data.map(function (y) {
                 return [y[0], parseFloat(y[1]) - parseFloat(baselineAverage)]
             })
         };
@@ -347,7 +350,7 @@ function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
     validateBaselineEntry(baselineStart, baselineFinish);
 
     //lmap instead of for loop - eliminates the need to flatten arrays in future
-    let baselinedObservedData = observedData.map(function(thisEnsemble) {
+    let baselinedObservedData = observedData.map(function (thisEnsemble) {
 
         console.log("selected ensemble " + thisEnsemble);
 
@@ -376,7 +379,7 @@ function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
 
         return {
             name: thisEnsemble.name,
-            data: thisEnsemble.data.map(function(y) {
+            data: thisEnsemble.data.map(function (y) {
                 return [y[0], parseFloat(y[1]) - parseFloat(baselineObservedAverage)]
             })
         };
@@ -399,8 +402,10 @@ function plotAllModelData() {
     let observedData = getObservedData();
     let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);
     plotModelData(combinedData, modelDataChartTitle);
-    document.getElementById("start").value = "";
-    document.getElementById("finish").value = "";
+    $('#presentation').prop('disabled', true);
+    $('highlightBaseline').attr('checked', false);
+    $('#startZoom').val("");
+    $('#finishZoom').val("");
 };
 
 function getModelDataChartTitle(baselineStart, baselineFinish) {
@@ -457,6 +462,10 @@ function plotBaselinedModelData() {
     let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);//.concat(controlData);
     plotModelData(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
     chartTitleColorChange(modelDataChartTitle);
+    $('#highlightBaseline').attr('checked', false);
+    $('#startZoom').val("");
+    $('#finishZoom').val("");
+    $('#presentation').prop('disabled', false);
 };
 
 //calculate the averages, populate an array with those averages, and then plot that array
@@ -465,24 +474,63 @@ function updatexAxis() {
     let xAxisStart = document.getElementById("startZoom").value;
     let xAxisFinish = document.getElementById("finishZoom").value;
 
-    if (xAxisStart === "") {
-        xAxisStart = 1900
+    /*
+
+        if (xAxisStart === "") {
+            xAxisStart = 1900
+        }
+
+        if (xAxisFinish === "") {
+            xAxisFinish = 2099
+        } */
+
+    if (validateUpdateAxis() == "true") {
+        chart.xAxis[0].update({
+            min: xAxisStart,
+            max: xAxisFinish
+        })
     }
-
-    if (xAxisFinish === "") {
-        xAxisFinish = 2099
-    }
-
-    chart.xAxis[0].update({
-        min: xAxisStart,
-        max: xAxisFinish
-    })
-
 }
 
+
+function validateUpdateAxis() {
+    let x = document.getElementById("startZoom").value;
+    let y = document.getElementById("finishZoom").value;
+
+
+    //to ensure values entered are years(numbers)        
+    if (isNaN(x)) {
+        alert("Error: Input must be a number");
+    }
+
+    else if (isNaN(y)) {
+        alert("Error: Input must be a number");
+    }
+
+    //to ensure the start year is before the end year
+    else if (y < x) {
+        alert("Error: Start year must be before finish year");
+
+    }
+
+    else if (x < 1900 || x > 2098) {
+        alert("Error: Start year must be between 1900 and 2090");
+    }
+
+    else if (y < 1900 || y > 2099) {
+        alert("Error: Finish year must be between 1901 and 2099");
+    }
+
+    else
+
+        return "true"
+
+};
+
+
 $(document).ready(function () {
-    
-    $('#highlightBaseline').click(function() {
+
+    $('#highlightBaseline').click(function () {
 
         let start = document.getElementById("start").value;
         let finish = document.getElementById("finish").value;
@@ -490,36 +538,80 @@ $(document).ready(function () {
         let plotLines = [];
 
         if (this.checked) {
-            plotLines.push(
-                {
-                    color: 'lightgray', // Color value
-                    dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-                    value: 2017, // Value of where the line will appear
-                    width: 2, // Width of the line    
-                    label: {
-                        text: '2017'
+
+            if (start === finish) {
+                plotLines.push(
+                    {
+                        color: 'lightgray', // Color value
+                        dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                        value: 2017, // Value of where the line will appear
+                        width: 2, // Width of the line    
+                        label: {
+                            text: '2017'
+                        }
+                    },
+                    {
+                        color: 'indianred', // Color value
+                        //dashStyle: 'dash', // Style of the plot line. Default to solid
+                        value: start, // Value of where the line will appear
+                        width: 2, // Width of the line    
+                        label: {
+                            text: 'Single year baseline',
+                            verticalAlign: 'top',
+                            textAlign: 'left',
+                            y: 50
+                        },
+                        tickmarkPlacement: 'on'
                     }
-                },
-                {
-                    color: 'green', // Color value
-                    //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-                    value: start, // Value of where the line will appear
-                    width: 2, // Width of the line    
-                    label: {
-                        text: 'Baseline Start',
-                        verticalAlign: 'top'
-                    }
-                },
-                {
-                    color: 'red', // Color value
-                    //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-                    value: finish, // Value of where the line will appear
-                    width: 2, // Width of the line    
-                    label: {
-                        text: 'Baseline Finish',
-                        verticalAlign: 'middle'
-                    }
-                });
+
+
+                )
+
+            } else {
+
+                plotLines.push(
+
+                    {
+                        color: 'lightgray', // Color value
+                        dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                        value: 2017, // Value of where the line will appear
+                        width: 2, // Width of the line    
+                        label: {
+                            text: '2017'
+                        }
+                    },
+                    {
+                        color: 'lightgreen', // Color value
+                        //dashStyle: 'dash', // Style of the plot line. Default to solid
+                        value: start, // Value of where the line will appear
+                        width: 2, // Width of the line    
+                        label: {
+                            text: 'Baseline Start',
+                            verticalAlign: 'top',
+                            //rotation: '-90'
+                            x: -12,
+                            y: 50,
+                            textAlign: 'left'
+                        },
+                        tickmarkPlacement: 'on'
+                    },
+                    {
+                        color: 'lightblue', // Color value
+                        //dashStyle: 'dash', // Style of the plot line. Default to solid
+                        value: finish, // Value of where the line will appear
+                        width: 2, // Width of the line    
+                        label: {
+                            text: 'Baseline Finish',
+                            verticalAlign: 'top',
+                            textAlign: 'left',
+                            y: 50
+                        },
+                        tickmarkPlacement: 'on'
+                    });
+            }
+
+
+
         }
         else {
             plotLines.push(
@@ -536,23 +628,44 @@ $(document).ready(function () {
         }
 
         console.log(plotLines);
-        
+
         chart.xAxis[0].update({ plotLines: plotLines });
     });
 });
 
 $(document).ready(function () {
+
     $('#createSnapshot').click(function () {
+
+        $("#createdCharts").show();
+
         let svgOptions = {
             chart: {
-                height: 350,
-                width: 450
+                height: 400,
+                width: 600
             }
         };
         let snapshotNumber = $('#snapshots').children().length + 1;
-        $('#snapshots').append('<div class="col-md-6" style="text-align: center;"><h3>Snapshot ' + snapshotNumber + '</h3>' + chart.getSVG(svgOptions) + '</div>');
+        $('#snapshots').append('<div class="col-md-6" style="text-align: left;"><h4>' + snapshotNumber + '</h4>' + chart.getSVG(svgOptions) + '</div>');
     })
 });
+
+$(document).ready(function () {
+    $('#clearSnapshot').click(function () {
+        $('#snapshots').empty()
+        $("#createdCharts").hide();
+        history.replaceState({}, '', '/');
+        toTop();
+
+    });
+});
+
+
+function toTop() {
+    if ($(document).scrollTop != 0) {
+        $('html, body').animate({ scrollTop: 0 }, 1000);
+    }
+}
 
 function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
 
@@ -652,25 +765,25 @@ function plotSpaghettiData() {
     //console.log(combinedData);
     //plotRawModelData(modelData, modelDataAverages, modelDataRanges);
 
-    let x = modelData.map(function(dataPoint) {
+    let x = modelData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 0.5, showInLegend: false
         };
     });
 
-    let y = modelDataAverages.map(function(dataPoint) {
+    let y = modelDataAverages.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 1.5, color: 'red'
         };
     });
 
-    let z = modelDataRanges.map(function(dataPoint) {
+    let z = modelDataRanges.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0
         };
     });
 
-    let w = modelObservedData.map(function(dataPoint) {
+    let w = modelObservedData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, visible: false
         };
@@ -735,15 +848,24 @@ function plotSpaghettiModel(modelData) {
         },
 
         legend: {
-            enabled: true
-
-            /*   title: {
-                   text: 'Ensemble'
-               },
-               layout: 'vertical',
-               align: 'left',
-               verticalAlign: 'top'*/
+            title: {
+                text: 'Data'
+            },
+            layout: 'horizontal',
+            align: 'bottom',
+            verticalAlign: 'bottom',
+            x: 0,
+            y: 25
         },
+
+        /*tooltip: {
+            crosshairs: true,
+            shared: true,
+            valueDecimals: 2,
+            valueSuffix: '°C'
+        },*/
+
+
 
         plotOptions: {
             //To set scale on xAxis from 1990
