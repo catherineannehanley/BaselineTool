@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebApplication1.Contact" %>
+﻿<%@ Page Title="Examples" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Examples.aspx.cs" Inherits="WebApplication1.Examples" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
@@ -16,14 +16,12 @@
 <div id="accordion">
   <h3>30 Year Baseline Period</h3>
     <div>
-         <div>
-            <img src="~\Content\B 1961 - 1990 baseline.png"> 
-         </div>
-         <p>
+           <img src="~/Content/1961-1990baseline.png" runat="server"/> 
+           <p>
            The 'baseline' is the period of reference from which future climate change projections 
            are calculated". As such, the baseline period should be representative of the present-day
            climate and of a sufficient duration to encompass a range of climatic variations. 
-           <\br>     
+               
            The World Meteorological Organization (WMO) recommends a 30 year "normal" period of 1961-1990. 
            If a shorter baseline period is used, significant weather anomalies can skew models and misrepresent
            the relationship between observed temperature and model data output.
@@ -31,12 +29,15 @@
   </div>
   <h3>One-year Baseline Periods</h3>
   <div>
+      
     <p>
     Models calculated using a one-year baseline period can be strongly influenced by a single extreme weather 
     event and can therefore be misleading. El Nino and La Nina describe the biggest fluctuation in the 
     Earth’s climate system and result in significant consequences across the globe.
-    <\br> 
+    </p>
+     
     <h4>El Niño-Southern Oscillation (ENSO)</h4>
+            <img src="~/Content/1998ElNino.png" runat="server"/> 
         <p>
             El Nino events occur at intervals of two to seven years and they result is significantly warmer 
             global average temperatures. If an El Nino year such as 1998 is used as a single year baseline, the global 
@@ -46,6 +47,8 @@
     
 
     <h4>La Nina</h4>
+            <img src="~/Content/1989LaNina.png" runat="server"> 
+
         <p>
             La Nina is characterised by unusually cold ocean temperatures in the Equatorial Pacific. If a La Nino year such
             as 1989 is used as a single year baseline, the global climate is defined as being cooled than it actually is.
@@ -54,9 +57,7 @@
 
         </p>
 
-
-    </p>
-  </div>
+</div>
   <!--<h3>Section 3</h3>
   <div>
     <p>
