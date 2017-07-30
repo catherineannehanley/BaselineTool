@@ -15,26 +15,46 @@
 
 <div id="accordion">
   <h3>30 Year Baseline Period</h3>
-  <div>
-     <img src="~/Content/B 1961 - 1990 baseline.png"> 
-
-      <p>
-   The 'baseline' is the period of reference from which future climate change projections 
-   are calculated". As such, the baseline period should be representative of the present-day
-   climate and of a sufficient duration to encompass a range of climatic variations. 
-   <\br>     
-   The World Meteorological Organization (WMO) recommends a 30 year "normal" period of 1961-1990. 
-   If a shorter baseline period is used, significant weather anomalies can skew models and misrepresent
-   the relationship between observed temperature and model data output.
-    </p>
+    <div>
+         <div>
+            <img src="~\Content\B 1961 - 1990 baseline.png"> 
+         </div>
+         <p>
+           The 'baseline' is the period of reference from which future climate change projections 
+           are calculated". As such, the baseline period should be representative of the present-day
+           climate and of a sufficient duration to encompass a range of climatic variations. 
+           <\br>     
+           The World Meteorological Organization (WMO) recommends a 30 year "normal" period of 1961-1990. 
+           If a shorter baseline period is used, significant weather anomalies can skew models and misrepresent
+           the relationship between observed temperature and model data output.
+         </p>
   </div>
   <h3>One-year Baseline Periods</h3>
   <div>
     <p>
-    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-    suscipit faucibus urna.
+    Models calculated using a one-year baseline period can be strongly influenced by a single extreme weather 
+    event and can therefore be misleading. El Nino and La Nina describe the biggest fluctuation in the 
+    Earth’s climate system and result in significant consequences across the globe.
+    <\br> 
+    <h4>El Niño-Southern Oscillation (ENSO)</h4>
+        <p>
+            El Nino events occur at intervals of two to seven years and they result is significantly warmer 
+            global average temperatures. If an El Nino year such as 1998 is used as a single year baseline, the global 
+            climate is defined as being warmer than it actually is. Therefore, the resulting climate model 
+            appears to project extreme warming when compared with observed temperature data sets. 
+        </p>
+    
+
+    <h4>La Nina</h4>
+        <p>
+            La Nina is characterised by unusually cold ocean temperatures in the Equatorial Pacific. If a La Nino year such
+            as 1989 is used as a single year baseline, the global climate is defined as being cooled than it actually is.
+            Therefore, the resulting climate model project future temperatures that are cooler than present day temperature
+            observations.
+
+        </p>
+
+
     </p>
   </div>
   <!--<h3>Section 3</h3>
