@@ -6,7 +6,7 @@
 
 let chart;
 
-//To ensure user enters numbers between 1900 and 2099 and that baselineStart is before baselineFinish
+//Validate user data entry
 function validateBaselineEntry(baselineStart, baselineFinish) {
     let x = document.getElementById("start").value;
     let y = document.getElementById("finish").value;
@@ -45,7 +45,43 @@ function validateBaselineEntry(baselineStart, baselineFinish) {
 
 }
 
+function validateUpdateAxis() {
+    let x = document.getElementById("startZoom").value;
+    let y = document.getElementById("finishZoom").value;
 
+
+    //to ensure values entered are years(numbers)        
+    if (isNaN(x)) {
+        alert("Error: Input must be a number");
+    }
+
+    else if (isNaN(y)) {
+        alert("Error: Input must be a number");
+    }
+
+    //to ensure the start year is before the end year
+    else if (y < x) {
+        alert("Error: Start year must be before finish year");
+
+    }
+
+    else if (x < 1900 || x > 2098) {
+        alert("Error: Start year must be between 1900 and 2090");
+    }
+
+    else if (y < 1900 || y > 2099) {
+        alert("Error: Finish year must be between 1901 and 2099");
+    }
+
+    else
+
+        return "true"
+
+};
+
+
+
+//immutable data
 function getModelData() {
     return [
         {
@@ -229,6 +265,11 @@ function getObservedData() {
     ];
 };
 
+//funtion getCoverageAdjustedData
+
+
+
+//funtional programming functions
 function getInvisibleObservedData(observedData) {
     return observedData.map(function (dataPoint) {
         return {
@@ -247,7 +288,7 @@ function getModelDataRanges(modelData) {
         .filter((value, index, array) => array.indexOf(value) === index);
 
     //make array of average temperature vaules for each year
-    var yearlyRanges = years.map(function (year) {
+    let yearlyRanges = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
@@ -282,7 +323,7 @@ function getModelDataAverages(modelData) {
         .filter((value, index, array) => array.indexOf(value) === index);
 
     //make array of average temperature vaules for each year
-    var yearlyAverages = years.map(function (year) {
+    let yearlyAverages = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened));
@@ -391,6 +432,9 @@ function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
 }
 
 
+
+
+//to plot all data (combining functions)
 function plotAllModelData() {
     let baselineStart = document.getElementById("start").value;
     let baselineFinish = document.getElementById("finish").value;
@@ -408,6 +452,67 @@ function plotAllModelData() {
     $('#finishZoom').val("");
 };
 
+function plotBaselinedModelData() {
+    let baselineStart = document.getElementById("start").value;
+    let baselineFinish = document.getElementById("finish").value;
+    let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
+    let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish);
+    let modelDataAverages = getModelDataAverages(baselinedModelData);
+    let modelDataRanges = getModelDataRanges(baselinedModelData);
+    //let observedData = getInvisibleObservedData(getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish));
+    let observedData = getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish);
+    let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);//.concat(controlData);
+    plotModelData(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
+    getChartTitleColor(modelDataChartTitle);
+    $('#highlightBaseline').attr('checked', false);
+    $('#startZoom').val("");
+    $('#finishZoom').val("");
+    $('#presentation').prop('disabled', false);
+};
+
+function plotSpaghettiData() {
+    let modelData = getModelData();
+    let modelDataAverages = getModelDataAverages(modelData);
+    let modelDataRanges = getModelDataRanges(modelData);
+    let modelObservedData = getInvisibleObservedData(getObservedData());
+
+    //plotRawModelData(combinedData);
+    //console.log(combinedData);
+    //plotRawModelData(modelData, modelDataAverages, modelDataRanges);
+
+    let x = modelData.map(function (dataPoint) {
+        return {
+            name: dataPoint.name, data: dataPoint.data, lineWidth: 0.5, showInLegend: false
+        };
+    });
+
+    let y = modelDataAverages.map(function (dataPoint) {
+        return {
+            name: dataPoint.name, data: dataPoint.data, lineWidth: 1.5, color: 'red'
+        };
+    });
+
+    let z = modelDataRanges.map(function (dataPoint) {
+        return {
+            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0
+        };
+    });
+
+    let w = modelObservedData.map(function (dataPoint) {
+        return {
+            name: dataPoint.name, data: dataPoint.data, visible: false
+        };
+    });
+
+    let combinedData = x.concat(y).concat(z).concat(w);
+
+    plotSpaghettiModel(combinedData);
+
+};
+
+
+
+//interactive visualisation functions
 function getModelDataChartTitle(baselineStart, baselineFinish) {
     let x = document.getElementById("start").value;
 
@@ -433,8 +538,7 @@ function getModelDataChartTitle(baselineStart, baselineFinish) {
     return modelDataChartTitle;
 };
 
-
-function chartTitleColorChange(modelDataChartTitle) {
+function getChartTitleColor(modelDataChartTitle) {
     let = thisTitle = modelDataChartTitle.toString()
     check = "Single Year Baseline"
 
@@ -446,31 +550,7 @@ function chartTitleColorChange(modelDataChartTitle) {
 
 };
 
-
-
-
-
-function plotBaselinedModelData() {
-    let baselineStart = document.getElementById("start").value;
-    let baselineFinish = document.getElementById("finish").value;
-    let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
-    let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish);
-    let modelDataAverages = getModelDataAverages(baselinedModelData);
-    let modelDataRanges = getModelDataRanges(baselinedModelData);
-    //let observedData = getInvisibleObservedData(getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish));
-    let observedData = getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish);
-    let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);//.concat(controlData);
-    plotModelData(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
-    chartTitleColorChange(modelDataChartTitle);
-    $('#highlightBaseline').attr('checked', false);
-    $('#startZoom').val("");
-    $('#finishZoom').val("");
-    $('#presentation').prop('disabled', false);
-};
-
-//calculate the averages, populate an array with those averages, and then plot that array
-
-function updatexAxis() {
+function getUpdatedXAxis() {
     let xAxisStart = document.getElementById("startZoom").value;
     let xAxisFinish = document.getElementById("finishZoom").value;
 
@@ -492,41 +572,7 @@ function updatexAxis() {
     }
 }
 
-
-function validateUpdateAxis() {
-    let x = document.getElementById("startZoom").value;
-    let y = document.getElementById("finishZoom").value;
-
-
-    //to ensure values entered are years(numbers)        
-    if (isNaN(x)) {
-        alert("Error: Input must be a number");
-    }
-
-    else if (isNaN(y)) {
-        alert("Error: Input must be a number");
-    }
-
-    //to ensure the start year is before the end year
-    else if (y < x) {
-        alert("Error: Start year must be before finish year");
-
-    }
-
-    else if (x < 1900 || x > 2098) {
-        alert("Error: Start year must be between 1900 and 2090");
-    }
-
-    else if (y < 1900 || y > 2099) {
-        alert("Error: Finish year must be between 1901 and 2099");
-    }
-
-    else
-
-        return "true"
-
-};
-
+//jQuery
 
 $(document).ready(function () {
 
@@ -660,16 +706,20 @@ $(document).ready(function () {
     });
 });
 
-
 function toTop() {
     if ($(document).scrollTop != 0) {
         $('html, body').animate({ scrollTop: 0 }, 1000);
     }
 }
 
+
+
+
+
+//Highcharts chart creation
 function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
 
-    chartTitleColorChange(modelDataChartTitle);
+    getChartTitleColor(modelDataChartTitle);
 
     chart = Highcharts.chart('graphContainer', {
 
@@ -754,49 +804,6 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
         series: modelData
     });
 };
-
-function plotSpaghettiData() {
-    let modelData = getModelData();
-    let modelDataAverages = getModelDataAverages(modelData);
-    let modelDataRanges = getModelDataRanges(modelData);
-    let modelObservedData = getInvisibleObservedData(getObservedData());
-
-    //plotRawModelData(combinedData);
-    //console.log(combinedData);
-    //plotRawModelData(modelData, modelDataAverages, modelDataRanges);
-
-    let x = modelData.map(function (dataPoint) {
-        return {
-            name: dataPoint.name, data: dataPoint.data, lineWidth: 0.5, showInLegend: false
-        };
-    });
-
-    let y = modelDataAverages.map(function (dataPoint) {
-        return {
-            name: dataPoint.name, data: dataPoint.data, lineWidth: 1.5, color: 'red'
-        };
-    });
-
-    let z = modelDataRanges.map(function (dataPoint) {
-        return {
-            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0
-        };
-    });
-
-    let w = modelObservedData.map(function (dataPoint) {
-        return {
-            name: dataPoint.name, data: dataPoint.data, visible: false
-        };
-    });
-
-    let combinedData = x.concat(y).concat(z).concat(w);
-
-    plotSpaghettiModel(combinedData);
-
-};
-
-
-//**************************PLOT SPAGHETTI CHART***********************************
 
 function plotSpaghettiModel(modelData) {
 
