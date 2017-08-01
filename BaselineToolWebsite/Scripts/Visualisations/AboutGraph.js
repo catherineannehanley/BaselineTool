@@ -268,7 +268,6 @@ function getObservedData() {
 //funtion getCoverageAdjustedData
 
 
-
 //funtional programming functions
 function getInvisibleObservedData(observedData) {
     return observedData.map(function (dataPoint) {
@@ -277,6 +276,7 @@ function getInvisibleObservedData(observedData) {
         };
     });
 }
+
 
 function getModelDataRanges(modelData) {
 
@@ -312,6 +312,7 @@ function getModelDataRanges(modelData) {
         }
     ];
 };
+
 
 function getModelDataAverages(modelData) {
 

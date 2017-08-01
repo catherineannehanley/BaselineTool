@@ -68,10 +68,51 @@ legend {
 }
 
 h5 {
-    margin-top: .6em
+    margin-top: .6em;
 }
 
 createdChart {
-    margin-top: 4em
+    margin-top: 4em;
 
 }
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+
+
+/*
+#elNinoImg {
+    max-width: 100%;
+    height: auto;
+}
+
+#laNinaImg {
+    max-width: 100%;
+    height: auto;
+}
+
+/*
+#standardBaseline {
+   max-width: 100%;
+   height: auto;
+   float: left;
+}
+
+
+
+#elNinoText {
+    max-width: 100%;
+    height: auto;
+    float: right;
+}
+
+#standardBaseline {
+    max-width: 100%;
+    height: auto;
+}
+
+*/
+
