@@ -25,7 +25,10 @@
             <h4>Menu</h4>
 
             <!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">CMIP3</button>
-            <button type="button" class="btn btn-secondary" onclick="plotSpaghettiData()">Spaghetti</button>-->
+            <button type="button" class="btn btn-secondary" onclick="plotSpaghettiData()">Spaghetti</button>
+                
+                   
+                -->
             
             <div class="clearfix" style="height: 5px;"></div>
 
@@ -33,7 +36,7 @@
                 <legend>Data</legend>
                 <h5>Select Baseline:</h5>
                 <input type="text" placeholder="Start" id="start" name="Start" />
-                <input type="text" placeholder="Finish" id="finish"  name="Finish" />
+                <input type="text" placeholder="Finish" id="finish"  name="Finish" /> 
                 
                 <div class="clearfix" style="height: 15px;"></div>
 
@@ -52,7 +55,7 @@
                 </label>
  
                 <div class="clearfix" style="height: 15px;"></div>
-
+                <!--
                 <h5>Select Observed Data:</h5>
                 <label>
                     <input type="radio" id="allObservedData" name="oData" checked/>Global
@@ -69,7 +72,8 @@
 
  
                 <div class="clearfix" style="height: 15px;"></div>
- 
+
+                -->
                 <button type="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">CMIP5</button>
                 <button type="button" class="btn btn-secondary" onclick="plotBaselinedSpaghettiModelData()">Spaghetti</button>
                 <!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">Reset</button><br /> -->
