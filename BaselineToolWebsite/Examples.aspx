@@ -19,19 +19,19 @@
   <h3>30 Year Baseline Period</h3>
             <div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <img src="~/Content/1961-1990baseline.png" runat="server" id="standardBaseline" alt="1961-1990Baseline" style ="max-width: 100%;" />
                     </div>
                      <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/Key.png" runat="server" alt="key" style ="max-width: 100%;" />
+                        <img src="~/Content/KeyExample.png" runat="server" alt="key" style ="max-width: 100%;" />
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                             <div class="clearfix" style="height: 60px;"></div>
                            <p>
                            The 'baseline' is the period of reference from which future climate change projections 
-                           are calculated". As such, the baseline period should be representative of the present-day
-                           climate and of a sufficient duration to encompass a range of climatic variations. 
+                           are calculated. It should be representative of the present-day climate and of a 
+                           sufficient duration to encompass a range of climatic variations. 
                             </p>
                                <div class="clearfix" style="height: 20px;"></div>
                         <p>
@@ -63,23 +63,19 @@
                         <h4>El Niño-Southern Oscillation (ENSO)</h4>
                         <img src="~/Content/1998ElNino.png" runat="server" alt="1998ElNino" style ="max-width: 100%;" /> 
                     </div>
-
-                    <div class="col-md-1">
-                        
-                    </div>
                     
                     <div class="col-md-5">
                         <h4>La Nina</h4>
                         <img src="~/Content/1989LaNina.png" runat="server" alt="1989LaNina" style ="max-width: 100%;" />
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/Key.png" runat="server" alt="key" style ="max-width: 100%;" />
+                        <img src="~/Content/KeyExample.png" runat="server" alt="key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
                     </div>
             </div>
         
             <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                          <p>
                             El Nino events occur at intervals of two to seven years and result in a significantly warmer 
                             global average temperatures. If an El Nino year such as 1998 is used as a single year baseline, the global 
@@ -87,7 +83,7 @@
                             appears to project extreme warming when compared with observed temperature data sets. 
                          </p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         
                         <p>
                             La Nina is characterised by unusually cold ocean temperatures in the Equatorial Pacific. If a La Nino year such
