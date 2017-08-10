@@ -36,8 +36,13 @@
                             </p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                       <div class="clearfix" style="height: 10px;"></div>
+                    </div>
             </div> 
-  
+
+            </div>  
     
   
    <h3>One-year Baseline Periods</h3> 

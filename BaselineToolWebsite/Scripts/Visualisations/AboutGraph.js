@@ -14,35 +14,42 @@ function validateBaselineEntry(baselineStart, baselineFinish) {
     //to ensure user provides both required values
     if (x == "") {
         alert("Please enter a start year");
+        return false;
     }
 
     else if (y == "") {
         alert("Please enter a finish year");
+        return false;
     }
 
     //to ensure values entered are years(numbers)        
     else if (isNaN(x)) {
         alert("Error: Input must be a number");
+        return false;
     }
 
     else if (isNaN(y)) {
         alert("Error: Input must be a number");
+        return false;
     }
 
     //to ensure the start year is before the end year
     else if (y < x) {
         alert("Error: Start year must be before finish year");
-
+        return false;
     }
 
     else if (x < 1900 || x > 2016) {
         alert("Error: Start year must be between 1900 and 2016");
+        return false;
     }
 
     else if (y < 1900 || y > 2099) {
         alert("Error: Finish year must be between 1901 and 2017");
+        return false;
     }
 
+    else return true;
 }
 
 function validateUpdateAxis() {
@@ -764,12 +771,20 @@ function getInvisibleObservedData(observedData) {
 }
 
 /*
-function getModelDataRanges(modelData) {
+function getModelDataST(modelData) {
 
-STANDARD DEVIATION:
 function(array) {
     return math.sqrt(arr.variance(array));
 }
+
+    function(array) {
+        var mean = arr.mean(array);
+        var standardDeviation = arr.standardDeviation(array);
+        return array.map(function (num)) {
+            return (num - mean) / standardDeviation;
+        });
+
+    }
 
     //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
     let years = modelData
@@ -874,83 +889,85 @@ function getModelDataAverages(modelData) {
 //get values entered into baseline selector
 function getBaselinedModelData(modelData, baselineStart, baselineFinish) {
 
-    validateBaselineEntry(baselineStart, baselineFinish);
+    if (validateBaselineEntry(baselineStart, baselineFinish) === true) {
 
-    //lmap instead of for loop - eliminates the need to flatten arrays in future
-    let baselinedModelData = modelData.map(function (thisEnsemble) {
+        //lmap instead of for loop - eliminates the need to flatten arrays in future
+        let baselinedModelData = modelData.map(function (thisEnsemble) {
 
-        //console.log("selected ensemble " + thisEnsemble);
+            //console.log("selected ensemble " + thisEnsemble);
 
-        //returns array of data for start and finish years (year, anomaly)
-        let startPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineStart))[0];
-        //console.log("startPoint " + startPoint);
+            //returns array of data for start and finish years (year, anomaly)
+            let startPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineStart))[0];
+            //console.log("startPoint " + startPoint);
 
-        let finishPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineFinish))[0];
-        //console.log("finishPoint " + finishPoint);
+            let finishPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineFinish))[0];
+            //console.log("finishPoint " + finishPoint);
 
-        //Get ensemble object from ensembleData
-        //filter array to only include objects between selected start year and finish year. Make new array of temp.anomallies in this range.
-        //Find average anomally value in this array
+            //Get ensemble object from ensembleData
+            //filter array to only include objects between selected start year and finish year. Make new array of temp.anomallies in this range.
+            //Find average anomally value in this array
 
-        let selectedYearRangeAnomalies = thisEnsemble
-            .data
-            .filter(y => y[0] >= parseInt(baselineStart) && y[0] <= parseInt(baselineFinish))
-            .map(z => parseFloat(z[1]));
+            let selectedYearRangeAnomalies = thisEnsemble
+                .data
+                .filter(y => y[0] >= parseInt(baselineStart) && y[0] <= parseInt(baselineFinish))
+                .map(z => parseFloat(z[1]));
 
-        //console.log("selected year range " + selectedYearRangeAnomalies);
+            //console.log("selected year range " + selectedYearRangeAnomalies);
 
-        //to calculate average temperature anomaly in array
+            //to calculate average temperature anomaly in array
 
-        let baselineAverage = selectedYearRangeAnomalies.reduce((total, value) => total + value) / selectedYearRangeAnomalies.length;
-        //console.log("average temp anomaly " + baselineAverage);
+            let baselineAverage = selectedYearRangeAnomalies.reduce((total, value) => total + value) / selectedYearRangeAnomalies.length;
+            //console.log("average temp anomaly " + baselineAverage);
 
-        return {
-            name: thisEnsemble.name,
-            data: thisEnsemble.data.map(function (y) {
-                return [y[0], parseFloat(y[1]) - parseFloat(baselineAverage)]
-            })
-        };
-    });
+            return {
+                name: thisEnsemble.name,
+                data: thisEnsemble.data.map(function (y) {
+                    return [y[0], parseFloat(y[1]) - parseFloat(baselineAverage)]
+                })
+            };
+        });
 
-    //console.log(baselinedModelData);
+        //console.log(baselinedModelData);
 
-    return baselinedModelData;
+        return baselinedModelData;
+    }
 }
 
 function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
 
-    validateBaselineEntry(baselineStart, baselineFinish);
+    if (validateBaselineEntry(baselineStart, baselineFinish) === true) {
 
-    //lmap instead of for loop - eliminates the need to flatten arrays in future
-    let baselinedObservedData = observedData.map(function (thisEnsemble) {
+        //lmap instead of for loop - eliminates the need to flatten arrays in future
+        let baselinedObservedData = observedData.map(function (thisEnsemble) {
 
-        //returns array of data for start and finish years (year, anomaly)
-        let startPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineStart))[0];
+            //returns array of data for start and finish years (year, anomaly)
+            let startPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineStart))[0];
 
-        let finishPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineFinish))[0];
+            let finishPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineFinish))[0];
 
-        //Get ensemble object from ensembleData
-        //filter array to only include objects between selected start year and finish year. Make new array of temp.anomallies in this range.
-        //Find average anomally value in this array
+            //Get ensemble object from ensembleData
+            //filter array to only include objects between selected start year and finish year. Make new array of temp.anomallies in this range.
+            //Find average anomally value in this array
 
-        let selectedYearRangeAnomalies = thisEnsemble
-            .data
-            .filter(y => y[0] >= parseInt(baselineStart) && y[0] <= parseInt(baselineFinish))
-            .map(z => parseFloat(z[1]));
+            let selectedYearRangeAnomalies = thisEnsemble
+                .data
+                .filter(y => y[0] >= parseInt(baselineStart) && y[0] <= parseInt(baselineFinish))
+                .map(z => parseFloat(z[1]));
 
-        //to calculate average temperature anomaly in array
+            //to calculate average temperature anomaly in array
 
-        let baselineObservedAverage = selectedYearRangeAnomalies.reduce((total, value) => total + value) / selectedYearRangeAnomalies.length;
+            let baselineObservedAverage = selectedYearRangeAnomalies.reduce((total, value) => total + value) / selectedYearRangeAnomalies.length;
 
-        return {
-            name: thisEnsemble.name,
-            data: thisEnsemble.data.map(function (y) {
-                return [y[0], parseFloat(y[1]) - parseFloat(baselineObservedAverage)]
-            })
-        };
-    });
-    
-    return baselinedObservedData;
+            return {
+                name: thisEnsemble.name,
+                data: thisEnsemble.data.map(function (y) {
+                    return [y[0], parseFloat(y[1]) - parseFloat(baselineObservedAverage)]
+                })
+            };
+        });
+
+        return baselinedObservedData;
+    }
 }
 
 
