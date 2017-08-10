@@ -28,12 +28,7 @@
                     </div>
                     <div class="col-md-4">
                             <div class="clearfix" style="height: 60px;"></div>
-                           <p>
-                           The 'baseline' is the period of reference from which future climate change projections 
-                           are calculated. It should be representative of the present-day climate and of a 
-                           sufficient duration to encompass a range of climatic variations. 
-                            </p>
-                               <div class="clearfix" style="height: 20px;"></div>
+                            <div class="clearfix" style="height: 20px;"></div>
                         <p>
                            The World Meteorological Organization (WMO) recommends a 30 year "normal" period of 1961-1990. 
                            If a shorter baseline period is used, significant weather anomalies can skew models and misrepresent

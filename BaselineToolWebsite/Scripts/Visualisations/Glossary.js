@@ -1,4 +1,8 @@
-﻿function hideAll() {
+﻿$(function () {
+    hideAll();
+});
+
+function hideAll() {
     $("#AEText").hide();
     $("#FJText").hide();
     $("#KOText").hide();
@@ -7,36 +11,28 @@
 }
 
 
+
 function showAE() {
     hideAll();
-    ("#AEText").show;
-}
-
-/*
-
-$("AE").click(function () {
-    hideAll();
     $("#AEText").show();
-});
+};
 
-
-$("FJ").click(function () {
+function showFJ() {
     hideAll();
     $("#FJText").show();
-});
+};
 
-$("KO").click(function () {
+function showKO() {
     hideAll();
     $("#KOText").show();
-});
+};
 
-$("PT").click(function () {
+function showPT() {
     hideAll();
     $("#PTText").show();
-});
+};
 
-$("UZ").click(function () {
+function showUZ() {
     hideAll();
     $("#UZText").show();
-});
-*/
+};

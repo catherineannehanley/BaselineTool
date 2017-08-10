@@ -719,15 +719,8 @@ function getModelData() {
 
 
         return modelData;
-    }
+}
 
-
-
-
-
-
-
-    
 
 function getObservedData() {
     return [
@@ -1040,10 +1033,11 @@ function plotBaselinedSpaghettiModelData() {
     let baselineStart = document.getElementById("start").value;
     let baselineFinish = document.getElementById("finish").value;
     let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish)
+    let observedData = getObservedData();
 
     let modelDataAverages = getModelDataAverages(baselinedModelData);
     let modelDataRanges = getModelDataRanges(baselinedModelData);
-    let modelObservedData = getInvisibleObservedData(getObservedData());
+    let modelObservedData = getInvisibleObservedData(getBaselinedObservedData(observedData, baselineStart, baselineFinish));
 
     let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
 
@@ -1061,7 +1055,7 @@ function plotBaselinedSpaghettiModelData() {
 
     let z = modelDataRanges.map(function (dataPoint) {
         return {
-            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0
+            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0, color: 'lightBlue'
         };
     });
 
