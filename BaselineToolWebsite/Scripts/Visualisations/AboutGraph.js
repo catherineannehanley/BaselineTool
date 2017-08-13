@@ -770,22 +770,45 @@ function getInvisibleObservedData(observedData) {
     });
 }
 
-/*
-function getModelDataST(modelData) {
 
-function(array) {
-    return math.sqrt(arr.variance(array));
+function standardDeviation(temperaturesForYear) {
+    //--CALCULATE AVAREGE--
+    let total = 0;
+    for (var key in temperaturesForYear)
+        total += temperaturesForYear[key];
+    let meanVal = total / temperaturesForYear.length;
+    //--CALCULATE AVAREGE--
+
+    //--CALCULATE STANDARD DEVIATION--
+    let SDprep = 0;
+    for (var key in temperaturesForYear)
+        SDprep += Math.pow((parseFloat(temperaturesForYear[key]) - meanVal), 2);
+    let SDresult = Math.sqrt(SDprep / temperaturesForYear.length);
+    //--CALCULATE STANDARD DEVIATION--
+    return SDresult;
 }
 
-    function(array) {
-        var mean = arr.mean(array);
-        var standardDeviation = arr.standardDeviation(array);
-        return array.map(function (num)) {
-            return (num - mean) / standardDeviation;
-        });
 
+function getModelDataRanges(modelData) {
+
+    let uncertainty;
+
+    if ($("#95PercentCertainty").is(':checked')) {
+        uncertainty = getModelData95PercentCertainty(modelData);
+        console.log("RCP26");
     }
 
+    else if ($("#maxMinSpread").is(':checked')) {
+        uncertainty = getModelDataSpread(modelData);
+        console.log("RCP45");
+    }
+
+    return uncertainty;
+};
+
+
+
+function getModelData95PercentCertainty(modelData) {
     //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
     let years = modelData
         .map(x => x.data.map(y => y[0]))
@@ -799,9 +822,15 @@ function(array) {
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
             .map(x => parseFloat(x));
-        let minTemp = Math.min(...temperaturesForYear);
-        let maxTemp = Math.max(...temperaturesForYear);
-        return [year, minTemp, maxTemp];
+
+        let meanTemperatureForYear = temperaturesForYear.reduce((total, value) => total + value) / temperaturesForYear.length;
+
+        let temperaturesForYearStandardDeviation = standardDeviation(temperaturesForYear);
+
+        let lowerBandAnomaly = meanTemperatureForYear - (2 * temperaturesForYearStandardDeviation);
+        let upperBandAnomaly = meanTemperatureForYear + (2 * temperaturesForYearStandardDeviation);
+
+        return [year, lowerBandAnomaly, upperBandAnomaly];
     });
 
     return [
@@ -816,13 +845,12 @@ function(array) {
                 enabled: false
             }
         }
-    ];
-};
-*/
+    ]; 
+} 
 
 
 
-function getModelDataRanges(modelData) {
+function getModelDataSpread(modelData) {
 
     //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
     let years = modelData
@@ -856,8 +884,10 @@ function getModelDataRanges(modelData) {
             }
         }
     ];
-};
 
+}
+
+   
 
 function getModelDataAverages(modelData) {
 

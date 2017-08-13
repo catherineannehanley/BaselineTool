@@ -15,16 +15,17 @@
   } );
   </script>
 
+
 <div id="accordion">
   <h3>30 Year Baseline Period</h3>
             <div>
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="~/Content/1961-1990baseline.png" runat="server" id="standardBaseline" alt="1961-1990Baseline" style ="max-width: 100%;" />
+                        <img src="~/Content/1961-1990baseline.png" runat="server" id="standardBaseline" alt="1961-1990 Baseline Model" style ="max-width: 100%;" />
                     </div>
                      <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="key" style ="max-width: 100%;" />
+                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%;" />
                     </div>
                     <div class="col-md-4">
                             <div class="clearfix" style="height: 60px;"></div>
@@ -61,16 +62,16 @@
             <div class="row">
                     <div class="col-md-5">
                         <h4>El Niño-Southern Oscillation (ENSO)</h4>
-                        <img src="~/Content/1998ElNino.png" runat="server" alt="1998ElNino" style ="max-width: 100%;" /> 
+                        <img src="~/Content/1998ElNino.png" runat="server" alt="1998 Single Year Baseline Model: ElNino" style ="max-width: 100%;" /> 
                     </div>
                     
                     <div class="col-md-5">
                         <h4>La Nina</h4>
-                        <img src="~/Content/1989LaNina.png" runat="server" alt="1989LaNina" style ="max-width: 100%;" />
+                        <img src="~/Content/1989LaNina.png" runat="server" alt="1989 Single Year Baseline Model: LaNina" style ="max-width: 100%;" />
                     </div>
                     <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
+                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
                     </div>
             </div>
         

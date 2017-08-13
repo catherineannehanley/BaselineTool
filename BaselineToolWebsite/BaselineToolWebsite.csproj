@@ -126,7 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
+    <Content Include="Glossary.aspx" />
     <Content Include="Content\KeyExample.png" />
     <Content Include="Examples.aspx" />
     <Content Include="Content\1989LaNina.png" />
@@ -225,12 +225,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="Glossary.aspx.cs">
+      <DependentUpon>Glossary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="Glossary.aspx.designer.cs">
+      <DependentUpon>Glossary.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Examples.aspx.cs">

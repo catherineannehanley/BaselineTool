@@ -18,11 +18,6 @@
 <div class="col-md-2" id="menu">
 	<h4>Menu</h4>
 
-	<!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">CMIP3</button>
-		<button type="button" class="btn btn-secondary" onclick="plotSpaghettiData()">Spaghetti</button>
-		             
-		    -->
-	
 	<div class ="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		<div class ="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
@@ -36,9 +31,16 @@
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> 
 			 <div class ="panel-body">
 				Select Baseline:
-				<input type="text" placeholder="Start" id="start" name="Start" />
-				<input type="text" placeholder="Finish" id="finish"  name="Finish" /> 
-				<div class="clearfix" style="height: 15px;"></div>
+                Enter a year between 1900 and 2017
+				<div>
+                 <input type="text" placeholder="Start" id="start" name="Start" aria-describedby="baseline-start-year" required />
+                 <div role="tooltip" id="baseline-start-year"></div>
+	             </div>
+                 <div>
+				<input type="text" placeholder="Finish" id="finish"  name="Finish" aria-describedby="baseline-finish-year" required /> 
+				<div role="tooltip" id="baseline-finish-year"></div>
+                </div>
+                <div class="clearfix" style="height: 15px;"></div>
 				<h5>Select CMIP5 Scenario:</h5>
 				<label>
 				<input type="radio" id="RCP26Scenario" name="scenario"/>RCP2.6
@@ -53,27 +55,16 @@
 				<input type="radio" id="RCP85Scenario" name="scenario" checked/>RCP8.5
 				</label>
 
-				<!--
-					<h5>Select Observed Data:</h5>
+                 <h5>Select Uncertainty:</h5>
 					<label>
-					    <input type="radio" id="allObservedData" name="oData" checked/>Global
+					<input type="radio" id="maxMinSpread" name="uncertainty" checked/>Spread
 					</label>
 					<label>
-					    <input type="radio" id="landObservedData" name="oData"/>Land
+					<input type="radio" id="95PercentCertainty" name="uncertainty"/>Standard Deviation
 					</label>
-					<label>
-					    <input type="radio" id="marineObservedData" name="oData"/>Marine
-					</label>
-					<label>
-					    <input type="radio" id="sateliteObservedData" name="oData"/>Satelite
-					</label>
-					
-					
-					<div class="clearfix" style="height: 15px;"></div>
-					
-					-->
-				<button type="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">CMIP5</button>
-				<button type="button" class="btn btn-secondary" onclick="plotBaselinedSpaghettiModelData()">Spaghetti</button>
+
+				<div role ="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">CMIP5</div>
+				<div role ="button" class="btn btn-secondary" onclick="plotBaselinedSpaghettiModelData()">Spaghetti</div>
 				<!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">Reset</button><br /> -->
 			</div>
 		</div>
@@ -89,21 +80,15 @@
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body">
-					<h5>Select Uncertainty:</h5>
-					<label>
-					<input type="radio" id="maxMinSpread" name="uncertainty" checked/>Spread
-					</label>
-					<label>
-					<input type="radio" id="standardDeviation" name="uncertainty"/>Standard Deviation
-					</label>
 					<div class="clearfix" style="height: 15px;"></div>
 					<input id="highlightBaseline" type="checkbox" name="highlightBaseline" value="highlightBaseline">Highlight Baseline<br>
 					<h5>Select year range: </h5>
 					<input type="text" placeholder="Start" id="startZoom" name="startZoom" />
 					<input type="text" placeholder="Finish" id="finishZoom" name="finishZoom" />
 					<div class="clearfix" style="height: 15px;"></div>
-					<button type="button" class="btn btn-secondary" onclick="getUpdatedXAxis()">Apply</button>
-					<button type="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">Undo</button>
+					 <div role ="button" class="btn btn-secondary" onclick="getUpdatedXAxis()">Apply</div>
+					 <div role ="button" class="btn btn-secondary" onclick="plotBaselinedModelData()">Undo</div>
+ 
 				</div>
 			</div>
 		</div>
@@ -118,8 +103,8 @@
 			</div>
 			<div id="collapseThree" class="panel-collapse collapse" role ="tabpanel" aria-labelledby="headingThree">
 				<div class="panel=-body">
-					<button type="button" id="createSnapshot" class="btn btn-secondaryCreate"> Snapshot</button>  
-					<button type="button" id="clearSnapshot" class="btn btn-secondaryCreate"> Clear All</button> 
+					<div role ="button" class="btn btn-secondary" id="createSnapshot" > Snapshot</div>  
+					<div role ="button" class="btn btn-secondary" id="clearSnapshot" > Clear All</div> 
 				</div>
 			</div>
 		</div>
