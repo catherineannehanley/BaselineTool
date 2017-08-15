@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Glossary" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Glossary.aspx.cs" Inherits="WebApplication1.About" %>
+﻿<%@ Page Title="Glossary" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Glossary.aspx.cs" Inherits="WebApplication1.Glossary" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     
@@ -11,23 +11,23 @@
          </div> 
          <div class="col-md-2" >
              <div class="clearfix" style="height: 25px;"></div>  
-             <div role ="button" class="btn btn-secondary" id="AE" onclick="showAE(); return false;" >A - E</div>
+             <div role ="button" aria-label="A to E" class="btn btn-info" id="AE" onclick="showAE(); return false;" >A - E</div>
          </div>
              <div class="col-md-2">
              <div class="clearfix" style="height: 25px;"></div>  
-         <div role ="button" class="btn btn-secondary" id="FJ" onclick="showFJ(); return false;">F - J</div>
+         <div role ="button" aria-label="F to J" class="btn btn-info" id="FJ" onclick="showFJ(); return false;">F - J</div>
          </div>
          <div class="col-md-2">
              <div class="clearfix" style="height: 25px;"></div>  
-             <div role ="button" class="btn btn-secondary" id="KO" onclick="showKO(); return false;">K - O</div>
+             <div role ="button" aria-label="K to O" class="btn btn-info" id="KO" onclick="showKO(); return false;">K - O</div>
          </div>
          <div class="col-md-2">
              <div class="clearfix" style="height: 25px;"></div>  
-             <div role ="button" class="btn btn-secondary" id="PT" onclick="showPT(); return false;">P - T</div>
+             <div role ="button" aria-label="P to T" class="btn btn-info" id="PT" onclick="showPT(); return false;">P - T</div>
          </div>
          <div class="col-md-2">
              <div class="clearfix" style="height: 25px;"></div>  
-            <div role ="button" class="btn btn-secondary" id="UZ" onclick="showUZ(); return false;">U - Z</div>
+            <div role ="button" aria-label="U to Z" class="btn btn-info" id="UZ" onclick="showUZ(); return false;">U - Z</div>
          </div>
              
     </div>
@@ -318,7 +318,7 @@
                          <ul>
                              <li><b>Spread</b> - represents the maximum and minimum temperature anomaly for each year </li>
                              <div class="clearfix" style="height: 5px;"></div> 
-                             <li><b>Standard Deviation</b> - 95% error margin.</li>
+                             <li><b>95% Confidence</b> - 95% error margin.</li>
                          </ul>
                             </p>
                      </div> 

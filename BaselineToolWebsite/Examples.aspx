@@ -6,22 +6,21 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <script>
-  $( function() {
-      $("#accordion").accordion({
-          collapsible: true
-
-      });
-  } );
-  </script>
-
-
-<div id="accordion">
-  <h3>30 Year Baseline Period</h3>
-            <div>
-                <div class="row">
+<div class ="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class ="panel panel-default">
+			<div class="panel-heading" role="tab" id="exampleOne">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded ="true"
+						aria-controls="collapseOne">
+					30 Year Baseline Period
+					</a>
+				</h4>
+			</div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> 
+			 <div class ="panel-body">
+				<div class="row">
                     <div class="col-md-6">
-                        <img src="~/Content/1961-1990baseline.png" runat="server" id="standardBaseline" alt="1961-1990 Baseline Model" style ="max-width: 100%;" />
+                        <img src="~/Content/1961-1990baseline.png" runat="server" id="Img1" alt="1961-1990 Baseline Model" style ="max-width: 100%;" />
                     </div>
                      <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
@@ -37,18 +36,21 @@
                             </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                       <div class="clearfix" style="height: 10px;"></div>
-                    </div>
-            </div> 
-
-            </div>  
-    
-  
-   <h3>One-year Baseline Periods</h3> 
-    <div> <!--- ACCORDION SECTION START -->
-                <div class ="row">
+			</div>
+		</div>
+        </div>
+		<div class ="panel panel-default">
+			<div class="panel-heading" role="tab" id="exampleTwo">
+				<h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded ="false"
+						aria-controls="collapseTwo">
+					One-Year Baseline Periods
+					</a>
+				</h4>
+			</div>
+			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+				<div class="panel-body">
+	                <div class ="row">
                     <div class="col-md-12">
 
                         <p>
@@ -96,11 +98,13 @@
                     
                     
             </div>
-    </div> <!--- ACCORDION SECTION FINISH -->
+				
+        </div>
+			</div>
+		</div>
+    </div>
 
-</div> <!--- ACCORDION FINISH -->
-
-
+    
 </asp:Content>
 
 
