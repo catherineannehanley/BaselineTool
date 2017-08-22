@@ -809,9 +809,11 @@ function getModelDataRanges(modelData) {
 };
 
 
-
+//function to compute 95% Certainty
 function getModelData95PercentCertainty(modelData) {
-    //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
+    //make array of years in ensembleData for x axis.
+    //.concat to merge arrays so there is only 1 instance of each year in array
+
     let years = modelData
         .map(x => x.data.map(y => y[0]))
         .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
@@ -824,44 +826,41 @@ function getModelData95PercentCertainty(modelData) {
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
             .map(x => parseFloat(x));
-
-        let meanTemperatureForYear = temperaturesForYear.reduce((total, value) => total + value) / temperaturesForYear.length;
-
+        let meanTemperatureForYear = temperaturesForYear.reduce
+            ((total, value) => total + value) / temperaturesForYear.length;
+        //compute standard deviation
         let temperaturesForYearStandardDeviation = standardDeviation(temperaturesForYear);
-
+        //use 68, 95, 99 rule: 95% of data points will be within 2 standard deviations of the mean
         let lowerBandAnomaly = meanTemperatureForYear - (2 * temperaturesForYearStandardDeviation);
         let upperBandAnomaly = meanTemperatureForYear + (2 * temperaturesForYearStandardDeviation);
-
         return [year, lowerBandAnomaly, upperBandAnomaly];
     });
 
-    return [
-        {
-            name: "Uncertainty",
-            data: yearlyRanges,
-            type: 'arearange',
-            //linkedTo: ':previous',
-            fillOpacity: 0.3,
-            zIndex: 0,
-            marker: {
-                enabled: false
-            }
+    return [{
+        name: "Uncertainty",
+        data: yearlyRanges,
+        type: 'arearange',
+        //linkedTo: ':previous',
+        fillOpacity: 0.3,
+        zIndex: 0,
+        marker: {
+            enabled: false
         }
-    ]; 
-} 
+    }];
+}
 
-
-
+//function to compute maximum and minimum temperature anomaly values for each year
 function getModelDataSpread(modelData) {
 
-    //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
+    //make array of years in ensembleData for x axis
+    //.concat to merge arrays so there is only one instance of each year in array
     let years = modelData
         .map(x => x.data.map(y => y[0]))
         .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
         //remove duplicate years from list
         .filter((value, index, array) => array.indexOf(value) === index);
 
-    //make array of average temperature vaules for each year
+    //make array of maximum and minimum temperature vaules for each year
     let yearlyRanges = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
@@ -871,95 +870,82 @@ function getModelDataSpread(modelData) {
         let maxTemp = Math.max(...temperaturesForYear);
         return [year, minTemp, maxTemp];
     });
-
-    return [
-        {
-            name: "Uncertainty",
-            data: yearlyRanges,
-            type: 'arearange',
-            //linkedTo: ':previous',
-            fillOpacity: 0.3,
-            color: "LightBlue",
-            zIndex: 0,
-            marker: {
-                enabled: false
-            }
+    //return in format compatible with Highcharts graphs
+    return [{
+        name: "Uncertainty",
+        data: yearlyRanges,
+        type: 'arearange',
+        fillOpacity: 0.3,
+        color: "lightBlue",
+        zIndex: 0,
+        marker: {
+            enabled: false
         }
-    ];
-
+    }];
 }
-
    
-
+//function to compute mean temperature anomaly per year
 function getModelDataAverages(modelData) {
 
-    //make array of years in ensembleData for x axis. .concat to merge arrays so there is only 1 instance of each year in array
+    //make array of years in modelData for x axis. 
+    //.concat to merge arrays so there is only one instance of each year in array
     let years = modelData
         .map(x => x.data.map(y => y[0]))
         .reduce((flattened, toFlatten) => toFlatten.concat(flattened))
         //remove duplicate years from list
         .filter((value, index, array) => array.indexOf(value) === index);
 
-    //make array of average temperature vaules for each year
+    //make array of temperature vaules for each year and compute the average temperature anomaly
     let yearlyAverages = years.map(function (year) {
         let temperaturesForYear = modelData
             .map(x => x.data.filter(y => parseInt(y[0]) == year).map(y => y[1]))
             .reduce((flattened, toFlatten) => toFlatten.concat(flattened));
         let averageTemperature = temperaturesForYear.reduce((total, value) => total + value) / temperaturesForYear.length;
+
         return [year, averageTemperature];
     });
 
-    return [
-        {
-            name: "Average Temperature",
-            data: yearlyAverages,
-            color: 'red'
-        }
-    ];
+    //returns data in format compatible with Highcharts graphs
+    return [{
+        name: "Average Temperature",
+        data: yearlyAverages,
+        color: 'red'
+    }];
 };
 
-//get values entered into baseline selector
+//function to baseline model data based on values entered into baseline selector GUI
 function getBaselinedModelData(modelData, baselineStart, baselineFinish) {
 
     if (validateBaselineEntry(baselineStart, baselineFinish) === true) {
 
-        //lmap instead of for loop - eliminates the need to flatten arrays in future
+        //.map instead of for loop - eliminates the need to flatten arrays in future
         let baselinedModelData = modelData.map(function (thisEnsemble) {
-
-            //console.log("selected ensemble " + thisEnsemble);
 
             //returns array of data for start and finish years (year, anomaly)
             let startPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineStart))[0];
-            //console.log("startPoint " + startPoint);
 
             let finishPoint = thisEnsemble.data.filter(x => x[0] === parseInt(baselineFinish))[0];
-            //console.log("finishPoint " + finishPoint);
-
             //Get ensemble object from ensembleData
-            //filter array to only include objects between selected start year and finish year. Make new array of temp.anomallies in this range.
+            //filter array to only include objects between selected start year and finish year
+            //Make new array of temp.anomalies in this range.
             //Find average anomally value in this array
-
             let selectedYearRangeAnomalies = thisEnsemble
                 .data
                 .filter(y => y[0] >= parseInt(baselineStart) && y[0] <= parseInt(baselineFinish))
                 .map(z => parseFloat(z[1]));
 
-            //console.log("selected year range " + selectedYearRangeAnomalies);
-
             //to calculate average temperature anomaly in array
+            let baselineAverage = selectedYearRangeAnomalies.reduce
+                ((total, value) => total + value) / selectedYearRangeAnomalies.length;
 
-            let baselineAverage = selectedYearRangeAnomalies.reduce((total, value) => total + value) / selectedYearRangeAnomalies.length;
-            //console.log("average temp anomaly " + baselineAverage);
-
+            //return data in the same format as model data so it can be plotted using plotModelData() method
             return {
                 name: thisEnsemble.name,
                 data: thisEnsemble.data.map(function (y) {
                     return [y[0], parseFloat(y[1]) - parseFloat(baselineAverage)]
                 })
-            };
+            }; 
         });
-
-        //console.log(baselinedModelData);
 
         return baselinedModelData;
     }
@@ -1223,7 +1209,10 @@ $(document).ready(function () {
                         value: 2017, // Value of where the line will appear
                         width: 2, // Width of the line    
                         label: {
-                            text: '2017'
+                            text: '2017',
+                            style: {
+                                "font-size": "14px"
+                            }
                         }
                     },
                     {
@@ -1235,7 +1224,10 @@ $(document).ready(function () {
                             text: 'Single year baseline',
                             verticalAlign: 'top',
                             textAlign: 'left',
-                            y: 50
+                            y: 55,
+                            style: {
+                                "font-size": "14px"
+                            }
                         },
                         tickmarkPlacement: 'on'
                     }
@@ -1253,7 +1245,10 @@ $(document).ready(function () {
                         value: 2017, // Value of where the line will appear
                         width: 2, // Width of the line    
                         label: {
-                            text: '2017'
+                            text: '2017',
+                            style: {
+                                "font-size": "14px"
+                            }
                         }
                     },
                     {
@@ -1266,8 +1261,11 @@ $(document).ready(function () {
                             verticalAlign: 'top',
                             //rotation: '-90'
                             x: -12,
-                            y: 50,
-                            textAlign: 'left'
+                            y: 55,
+                            textAlign: 'left',
+                            style: {
+                                "font-size": "14px"
+                            }
                         },
                         tickmarkPlacement: 'on'
                     },
@@ -1280,7 +1278,10 @@ $(document).ready(function () {
                             text: 'Baseline Finish',
                             verticalAlign: 'top',
                             textAlign: 'left',
-                            y: 50
+                            y: 55,
+                            style: {
+                                "font-size": "14px"
+                            }
                         },
                         tickmarkPlacement: 'on'
                     });
@@ -1297,7 +1298,10 @@ $(document).ready(function () {
                     value: 2017, // Value of where the line will appear
                     width: 2, // Width of the line    
                     label: {
-                        text: '2017'
+                        text: '2017',
+                        style: {
+                            "font-size": "14px"
+                        }
                     }
                 }
             );
@@ -1318,12 +1322,31 @@ $(document).ready(function () {
         let svgOptions = {
             chart: {
                 height: 400,
-                width: 600
+                width: 570
+            },
+            xAxis: {
+                title: {
+                    style: { "color": "#ffffff" }
+                }
+            },
+            subtitle: null,
+            legend: {
+                floating: false,
+                itemDistance: 40,
+                title: {
+                    text: null
+                }
             }
         };
-        let snapshotNumber = $('#snapshots').children().length + 1;
-        $('#snapshots').append('<div class="col-md-6" style="text-align: left;"><h4>' + snapshotNumber + '</h4>' + chart.getSVG(svgOptions) + '</div>');
+        $('#snapshots').append('<div class="col-md-6" style="text-align: left;"><span class="close">X</span>' + chart.getSVG(svgOptions) + '</div>');
     })
+});
+
+$(document).on('click', '.close', function () {
+    $(this).parent().remove();
+    if ($('.close').length == 0) {
+        $("#createdCharts").hide();
+    }
 });
 
 $(document).ready(function () {
@@ -1343,6 +1366,20 @@ function toTop() {
 }
 
 
+//To clear baseline start text box on click   .focus used instead of .click as this works with keyboard
+$('#start').focus(
+    function() {
+        this.value ='';
+    });
+
+
+//To clear baseline finish text box on click   .focus used instead of .click as this works with keyboard
+$('#finish').focus(
+    function () {
+        this.value = '';
+    });
+
+
 
 //Highcharts chart creation
 function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
@@ -1356,7 +1393,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
         },
 
         title: {
-            text: 'CMIP5 ' + modelDataChartTitle
+            text: 'Observational Data and CMIP5 ' + modelDataChartTitle  
         },
 
         // hyperlink source in subtitle
@@ -1383,7 +1420,10 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
                 value: 2017, // Value of where the line will appear
                 width: 2, // Width of the line    
                 label: {
-                    text: '2017'
+                    text: '2017',
+                    style: {
+                        "font-size": "14px"
+                    }
                 },
                 id: 'currentYear'
             }]
@@ -1404,7 +1444,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
 
         legend: {
             title: {
-                text: 'Data'
+                text: 'Climate Model and Observational Data'
             },
             layout: 'horizontal',
             align: 'bottom',
@@ -1468,7 +1508,10 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
                 value: 2017, // Value of where the line will appear
                 width: 2, // Width of the line    
                 label: {
-                    text: '2017'
+                    text: '2017',
+                    style: {
+                        "font-size": "14px"
+                    }
                 }
             }]
 
@@ -1485,7 +1528,7 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
 
         legend: {
             title: {
-                text: 'Data'
+                text: 'Climate Model and Observational Data'
             },
             layout: 'horizontal',
             align: 'bottom',

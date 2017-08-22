@@ -8,11 +8,13 @@
     <div class="row">
         <div class="col-md-10">
             <div class="row">
+                <div class="clearfix" style="height: 15px;"></div>
                 <div class="col-md-12" id="graphContainer" style="height: 550px;">
                 </div>
             </div>
         </div>
         <div class="col-md-2" id="menu">
+            <div class="clearfix" style="height: 15px;"></div>
             <h4>Menu</h4>
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
@@ -35,7 +37,7 @@
                                 <div role="tooltip" id="baseline-finish-year"></div>
                             </div>
                             <div class="clearfix" style="height: 15px;"></div>
-                            <h5>Select CMIP5 Scenario:</h5>
+                            <h5>Select Scenario:</h5>
                             <label>
                                 <input type="radio" id="RCP26Scenario" name="scenario" />RCP2.6
                             </label>
@@ -56,9 +58,9 @@
                             <label>
                                 <input type="radio" id="95PercentCertainty" name="uncertainty" />95% Confidence
                             </label>
-                            <div class="btn-group" role="group" aria-label="Toolbar with plot graph buttons">
-                                <div role="button" class="btn btn-info" aria-label="CMIP5" onclick="plotBaselinedModelData()">CMIP5</div>
-                                <div role="button" class="btn btn-info" aria-label="Spaghetti" onclick="plotBaselinedSpaghettiModelData()">Spaghetti</div>
+                            <div role="group" aria-label="Toolbar with plot graph buttons">
+                                <div role="button" class="btn btn-info btn-block" aria-label="CMIP5" tabindex="0" aria-pressed="false" onkeydown="plotBaselinedModelData()" onclick="plotBaselinedModelData()">CMIP5</div>
+                                <div role="button" class="btn btn-info btn-block" aria-label="Spaghetti" tabindex="0" aria-pressed="false" onkeydown="plotBaselinedSpaghettiModelData()" onclick="plotBaselinedSpaghettiModelData()">Spaghetti</div>
                             </div>
                             <!--<button type="button" class="btn btn-secondary" onclick="plotAllModelData()">Reset</button><br /> -->
                         </div>
@@ -80,9 +82,9 @@
                             <input type="text" placeholder="Start" id="startZoom" name="startZoom" />
                             <input type="text" placeholder="Finish" id="finishZoom" name="finishZoom" />
                             <div class="clearfix" style="height: 15px;"></div>
-                            <div class="btn-group" role="group" aria-label="Toolbar with Edit Graph Buttons">
-                                <div role="button" aria-label="Apply" class=" btn btn-info" onclick="getUpdatedXAxis()">Apply</div>
-                                <div role="button" aria-label="Undo" class="btn btn-info" onclick="plotBaselinedModelData()">Undo</div>
+                            <div role="group" aria-label="Toolbar with Edit Graph Buttons">
+                                <div role="button" aria-label="Apply" class="btn btn-info btn-block" tabindex="0" aria-pressed="false" id="editApply" onkeydown="getUpdatedXAxis()" onclick="getUpdatedXAxis()">Apply</div>
+                                <div role="button" aria-label="Undo" class="btn btn-info btn-block" tabindex="0" aria-pressed="false" id="editUndo" onkeydown="plotBaselinedModelData()" onclick="plotBaselinedModelData()">Undo</div>
                             </div>
 
                         </div>
@@ -97,10 +99,16 @@
                         </h4>
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="panel=-body">
-                            <div class="btn-group" role="group" aria-label="Toolbar with comparison buttons">
-                                <div role="button" aria-label="Snapshot" class="btn btn-info" id="createSnapshot">Snapshot</div>
-                                <div role="button" aria-label="Clear All" class="btn btn-info" id="clearSnapshot">Clear All</div>
+                        <div class="panel-body">
+                            <div role="group" aria-label="Toolbar with comparison buttons">
+                                <div role="button" aria-label="Snapshot" class="btn btn-info btn-block" tabindex="0" aria-pressed="false" id="createSnapshot">Snapshot</div>
+                                <div role="button" aria-label="Clear All" class="btn btn-info btn-block" tabindex="0" aria-pressed="false" id="clearSnapshot">Clear All</div> 
+                            </div>
+                            <div>
+                            <div id="createdCharts">
+                                <div class="clearfix" style="height: 5px;"></div>
+                                <a href="#linkToCreatedCharts" tabindex="0" aria-pressed="false" class="btn btn-info btn-block" id="GraphsButton" >My Graphs</a>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -116,18 +124,12 @@
     </div>
 
     <!-- end of menu items -->
-    <div class="row">
-        <div class="col-md-12" id="createdCharts">
-            <a href="#linkToCreatedCharts">
-                <h4>Created Charts</h4>
-            </a>
-        </div>
-    </div>
+    
     <div class="row">
         <a name="linkToCreatedCharts"></a>
     </div>
-    <div
-        class="row" id="snapshots">
+    <div class="clearfix" style="height: 30px;"></div>
+    <div class="row" id="snapshots">
     </div>
 
 

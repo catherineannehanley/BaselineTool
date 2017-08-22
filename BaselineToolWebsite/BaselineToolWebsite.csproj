@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -126,7 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Glossary.aspx" />
+    <Content Include="Definitions.aspx" />
     <Content Include="Content\KeyExample.png" />
     <Content Include="Examples.aspx" />
     <Content Include="Content\1989LaNina.png" />
@@ -220,17 +221,19 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="Glossary.aspx.cs">
-      <DependentUpon>Glossary.aspx</DependentUpon>
+    <Compile Include="Definitions.aspx.cs">
+      <DependentUpon>Definitions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Glossary.aspx.designer.cs">
-      <DependentUpon>Glossary.aspx</DependentUpon>
+    <Compile Include="Definitions.aspx.designer.cs">
+      <DependentUpon>Definitions.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Examples.aspx.cs">

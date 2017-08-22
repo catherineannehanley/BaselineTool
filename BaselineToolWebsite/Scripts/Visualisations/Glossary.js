@@ -36,3 +36,10 @@ function showUZ() {
     hideAll();
     $("#UZText").show();
 };
+
+
+function toTop() {
+    if ($(document).scrollTop != 0) {
+        $('html, body').animate({ scrollTop: 0 }, 1000);
+    }
+}

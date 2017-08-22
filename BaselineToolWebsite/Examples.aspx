@@ -10,13 +10,13 @@
 		<div class ="panel panel-default">
 			<div class="panel-heading" role="tab" id="exampleOne">
 				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded ="true"
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded ="false"
 						aria-controls="collapseOne">
 					30 Year Baseline Period
 					</a>
 				</h4>
 			</div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> 
+            <div id="collapseOne" class="panel-collapse collapse " role="tab" aria-labelledby="headingOne"> 
 			 <div class ="panel-body">
 				<div class="row">
                     <div class="col-md-6">
@@ -101,11 +101,14 @@
 				
         </div>
 			</div>
+
+
+
 		</div>
     </div>
-
-    
+     
 </asp:Content>
+
 
 
 
