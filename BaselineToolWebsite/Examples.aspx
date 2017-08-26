@@ -20,18 +20,18 @@
 			 <div class ="panel-body">
 				<div class="row">
                     <div class="col-md-10">
-                        <img src="~/Content/1961-1990baseline.png" runat="server" id="Img1" alt="1961-1990 Baseline Model" style ="max-width: 100%;" />
+                        <img src="~/Content/examplePageNormal.png" runat="server" id="Img1" alt="1961-1990baseline" style ="max-width: 100%;" />
                     </div>
                      <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%;" />
+                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px;" />
                     </div>
                     
                 </div>
                  <div class="row">
                      <div class="col-md-12">
                            <p>
-                           The World Meteorological Organization (WMO) recommends a 30 year "normal" period of 1961-1990. 
+                           The World Meteorological Organisation (WMO) recommends a 30 year "normal" period of 1961-1990. 
                            If a shorter baseline period is used, significant weather anomalies can skew models and misrepresent
                            the relationship between observed temperature and model data output.
                             </p>
@@ -55,7 +55,7 @@
            
             <div class="row">
                     <div class="col-md-10">
-                        <img src="~/Content/1998ElNino.png" runat="server" alt="1998 Single Year Baseline Model: ElNino" style ="max-width: 100%;" /> 
+                        <img src="~/Content/examplePageElNino.png" runat="server" alt="1998 Single Year Baseline Model: ElNino" style ="max-width: 100%;" /> 
                     </div>
                     
                     <div class="col-md-2">
@@ -97,7 +97,7 @@
 	                          
             <div class="row">
                     <div class="col-md-10">
-                    <img src="~/Content/1989LaNina.png" runat="server" alt="1989 Single Year Baseline Model: LaNina" style ="max-width: 100%;" />
+                    <img src="~/Content/examplePageLaNina.png" runat="server" alt="1989 Single Year Baseline Model: LaNina" style ="max-width: 100%;" />
                     </div>
                     
                     <div class="col-md-2">
