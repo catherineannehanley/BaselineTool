@@ -1,8 +1,7 @@
 ﻿$(function () {
     plotAllModelData();
     $("#createdCharts").hide();
-
-});
+  });
 
 let chart;
 
@@ -708,17 +707,14 @@ function getModelData() {
 
         if ($("#RCP26Scenario").is(':checked')) {
             modelData = getRCP26();
-            console.log("RCP26");
         }
 
         else if ($("#RCP45Scenario").is(':checked')) {
             modelData = getRCP45();
-            console.log("RCP45");
         }
 
         else if ($("#RCP60Scenario").is(':checked')) {
             modelData = getRCP60();
-            console.log("RCP60");
         }
 
         else {
@@ -797,12 +793,10 @@ function getModelDataRanges(modelData) {
 
     if ($("#95PercentCertainty").is(':checked')) {
         uncertainty = getModelData95PercentCertainty(modelData);
-        console.log("RCP26");
     }
 
     else if ($("#maxMinSpread").is(':checked')) {
         uncertainty = getModelDataSpread(modelData);
-        console.log("RCP45");
     }
 
     return uncertainty;
@@ -837,11 +831,12 @@ function getModelData95PercentCertainty(modelData) {
     });
 
     return [{
-        name: "Uncertainty",
+        name: "CMIP5: Uncertainty",
         data: yearlyRanges,
         type: 'arearange',
         //linkedTo: ':previous',
         fillOpacity: 0.3,
+        color: "lightBlue",
         zIndex: 0,
         marker: {
             enabled: false
@@ -872,7 +867,7 @@ function getModelDataSpread(modelData) {
     });
     //return in format compatible with Highcharts graphs
     return [{
-        name: "Uncertainty",
+        name: "CMIP5: Uncertainty",
         data: yearlyRanges,
         type: 'arearange',
         fillOpacity: 0.3,
@@ -904,10 +899,11 @@ function getModelDataAverages(modelData) {
 
         return [year, averageTemperature];
     });
+    
 
     //returns data in format compatible with Highcharts graphs
     return [{
-        name: "Average Temperature",
+        name: "CMIP5: Average Temperature Anomaly",
         data: yearlyAverages,
         color: 'red'
     }];
@@ -1016,9 +1012,8 @@ function plotBaselinedModelData() {
     let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish);
     let modelDataAverages = getModelDataAverages(baselinedModelData);
     let modelDataRanges = getModelDataRanges(baselinedModelData);
-    //let observedData = getInvisibleObservedData(getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish));
     let observedData = getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish);
-    let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);//.concat(controlData);
+    let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);
     plotModelData(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
     getChartTitleColor(modelDataChartTitle);
     $('#highlightBaseline').attr('checked', false);
@@ -1075,6 +1070,8 @@ function plotBaselinedSpaghettiModelData() {
     let modelObservedData = getInvisibleObservedData(getBaselinedObservedData(observedData, baselineStart, baselineFinish));
 
     let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
+
+
 
     let x = baselinedModelData.map(function (dataPoint) {
         return {
@@ -1138,21 +1135,26 @@ function getModelDataChartTitle(baselineStart, baselineFinish) {
 
     if (x === "") {
 
-        modelDataChartTitle = scenario
+        modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >'
     }
 
     else if (x === y) {
 
-        modelDataChartTitle = ": Single Year Baseline " + x;
+        modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >' + '<span data- toggle="tooltip" title= "Period of reference used to define average climate." data- placement="bottom" > : Single Year Baseline </span >' + x;
     }
 
     else {
 
-        modelDataChartTitle = scenario + " : Baseline " + x + " to " + y
+        modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >' + '<span data- toggle="tooltip" title= "Period of reference used to define average climate." data- placement="bottom" > : Baseline </span >' + x + " to " + y;
     }
 
     return modelDataChartTitle;
 };
+
+
+
+
+
 
 function getChartTitleColor(modelDataChartTitle) {
     let = thisTitle = modelDataChartTitle.toString()
@@ -1253,13 +1255,11 @@ $(document).ready(function () {
                     },
                     {
                         color: 'lightgreen', // Color value
-                        //dashStyle: 'dash', // Style of the plot line. Default to solid
                         value: start, // Value of where the line will appear
                         width: 2, // Width of the line    
                         label: {
                             text: 'Baseline Start',
                             verticalAlign: 'top',
-                            //rotation: '-90'
                             x: -12,
                             y: 55,
                             textAlign: 'left',
@@ -1306,8 +1306,7 @@ $(document).ready(function () {
                 }
             );
         }
-
-        //console.log(plotLines);
+        
 
         chart.xAxis[0].update({ plotLines: plotLines });
     });
@@ -1393,8 +1392,11 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
         },
 
         title: {
-            text: 'Observational Data and CMIP5 ' + modelDataChartTitle  
+            text: '<span data-toggle="tooltip" title="Informed by actual temperature records." data-placement="bottom">Observational Data </span>' + '<span data-toggle="tooltip" title="Global climate change model." data-placement="bottom">and CMIP5 </span>' + modelDataChartTitle,
+            useHTML: true,            
         },
+
+       
 
         // hyperlink source in subtitle
         subtitle: {
@@ -1432,7 +1434,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
 
         yAxis: {
             title: {
-                text: '<span data-toggle="tooltip" title="The difference between the long-term average temperature and the projected or observed temperature." data-placement="bottom">Anomaly/°C </span>',
+                text: '<span data-toggle="tooltip" title="The difference between the long-term average temperature and the projected or observed temperature." data-placement="bottom">Temperature Anomaly/°C </span>',
                 useHTML: true,
             },
 
@@ -1485,8 +1487,10 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
         },
 
         title: {
-            text: 'CMIP5 Spaghetti Model' + modelDataChartTitle
+            text: '<span data- toggle="tooltip" title= "Raw data for global climate model." data- placement="bottom" > CMIP5 Spaghetti Model </span > ' + modelDataChartTitle,
+            useHTML: true,
         },
+
 
         // hyperlink source in subtitle
         subtitle: {
@@ -1518,8 +1522,10 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
         },
 
         yAxis: {
+            
             title: {
-                text: 'Anomaly/°C'
+                text: '<span data-toggle="tooltip" title="The difference between the long-term average temperature and the projected or observed temperature." data-placement="bottom">Temperature Anomaly/°C </span>',
+                useHTML: true,
             },
 
             max: 6,

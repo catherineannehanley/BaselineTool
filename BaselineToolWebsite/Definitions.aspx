@@ -51,10 +51,8 @@
             <div class="col-md-9">
                 <p>
                     The temperature difference from an average or baseline value. A positive anomaly indicates
-                         the temperature is warmer than the reference value; a negative anomaly indicates the temperature
-                         is cooler than the reference value. Anomaly values are used as climate models are not good at 
-                         identifying exact temperatures, but good at determining how much a temperature differs from a
-                         reference value.
+                         the temperature is warmer than the reference period; a negative anomaly indicates the temperature
+                         is cooler than the reference period.
                 </p>
             </div>
         </div>
@@ -95,9 +93,9 @@
             </div>
             <div class="col-md-9">
                 <p>
-                    The 'baseline' is the period of reference from which future climate change projections 
-                           are calculated. It should be representative of the present-day climate and of a 
-                           sufficient duration to encompass a range of climatic variations. 
+                    The 'baseline' is the period of reference used to calculate climate change projections. 
+                    It should be representative of the present-day climate and of a 
+                    sufficient duration to encompass a range of climatic variations. 
                 </p>
             </div>
         </div>
@@ -116,7 +114,8 @@
             </div>
             <div class="col-md-9">
                 <p>
-                    Coupled Model Intercomparison Project Phase 5. Many global models in one.
+                    Coupled Model Intercomparison Project Phase 5 is a global climate change model which is the
+                    culmination of international climate research.
                          <a href="http://climexo.knmi.nl/start.cgi?id=someone@somewhere ">DATA</a>
                 </p>
             </div>
@@ -323,7 +322,9 @@
             <div class="col-md-1">
             </div>
             <div class="col-md-2">
-                <h4>Uncertainty</h4>
+                <h4>
+
+                </h4>
             </div>
             <div class="col-md-9">
                 <p>

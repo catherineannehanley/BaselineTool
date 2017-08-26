@@ -27,8 +27,8 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            Select Baseline:
-                            <div>
+                             <span data-toggle="tooltip" title="Enter a start year and finish year between 1900 and 2017." data-placement="bottom">Select Baseline: </span>
+                             <div>
                                 <input type="text" placeholder="Start" id="start" name="Start" aria-describedby="baseline-start-year" required />
                                 <div role="tooltip" id="baseline-start-year"></div>
                             </div>
@@ -37,26 +37,26 @@
                                 <div role="tooltip" id="baseline-finish-year"></div>
                             </div>
                             <div class="clearfix" style="height: 15px;"></div>
-                            <h5>Select Scenario:</h5>
+                            <span data-toggle="tooltip" title="Possible future state of the world based on extent of greenhouse gas (GHG) emissions." data-placement="bottom">Select Scenario: </span>
                             <label>
-                                <input type="radio" id="RCP26Scenario" name="scenario" />RCP2.6
+                                <input type="radio" id="RCP26Scenario" name="scenario" /><span data-toggle="tooltip" title="Assumes GHG emissions peak at 2020 and decline significantly thereafter." data-placement="bottom">RCP2.6 </span>
                             </label>
                             <label>
-                                <input type="radio" id="RCP45Scenario" name="scenario" />RCP4.5
+                                <input type="radio" id="RCP45Scenario" name="scenario" /><span data-toggle="tooltip" title="Assumes GHG emissions peak at 2040 and then decline." data-placement="bottom">RCP4.5 </span>
                             </label>
                             <label>
-                                <input type="radio" id="RCP60Scenario" name="scenario" />RCP6.0
+                                <input type="radio" id="RCP60Scenario" name="scenario" /><span data-toggle="tooltip" title="Assumes GHG emissions peak at 2080 and then decline." data-placement="bottom">RCP6.0 </span>
                             </label>
                             <label>
-                                <input type="radio" id="RCP85Scenario" name="scenario" checked />RCP8.5
+                                <input type="radio" id="RCP85Scenario" name="scenario" checked /><span data-toggle="tooltip" title="Business as usual: assumes GHG emissions continue to rise at their current rate." data-placement="bottom">RCP8.5 </span>
                             </label>
 
-                            <h5>Select Uncertainty:</h5>
+                            Select Uncertainty:
                             <label>
-                                <input type="radio" id="maxMinSpread" name="uncertainty" checked />Spread
+                                <input type="radio" id="maxMinSpread" name="uncertainty" checked /><span data-toggle="tooltip" title="Maximum and minimum temperature anomaly values per year." data-placement="bottom">Spread </span>
                             </label>
                             <label>
-                                <input type="radio" id="95PercentCertainty" name="uncertainty" />95% Confidence
+                                <input type="radio" id="95PercentCertainty" name="uncertainty" /><span data-toggle="tooltip" title="95% confidence interval for temperature anomaly values per year ." data-placement="bottom">95% Confidence </span>
                             </label>
                             <div role="group" aria-label="Toolbar with plot graph buttons">
                                 <div role="button" class="btn btn-info btn-block" aria-label="CMIP5" tabindex="0" aria-pressed="false" onkeydown="plotBaselinedModelData()" onclick="plotBaselinedModelData()">CMIP5</div>
@@ -78,7 +78,7 @@
                         <div class="panel-body">
                             <div class="clearfix" style="height: 15px;"></div>
                             <input id="highlightBaseline" type="checkbox" name="highlightBaseline" value="highlightBaseline">Highlight Baseline<br>
-                            <h5>Select year range: </h5>
+                            Select year range:
                             <input type="text" placeholder="Start" id="startZoom" name="startZoom" />
                             <input type="text" placeholder="Finish" id="finishZoom" name="finishZoom" />
                             <div class="clearfix" style="height: 15px;"></div>
