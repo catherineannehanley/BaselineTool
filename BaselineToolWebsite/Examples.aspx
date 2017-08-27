@@ -20,11 +20,11 @@
 			 <div class ="panel-body">
 				<div class="row">
                     <div class="col-md-10">
-                        <img src="~/Content/examplePageNormal.png" runat="server" id="Img1" alt="1961-1990baseline" style ="max-width: 100%;" />
+                        <img src="~/Content/examplePageNormal.jpg" runat="server" id="Img1" alt="1961-1990baseline" style ="max-width: 100%;" />
                     </div>
                      <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px;" />
+                        <img src="~/Content/examplePageKey.jpg" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px;" />
                     </div>
                     
                 </div>
@@ -55,12 +55,12 @@
            
             <div class="row">
                     <div class="col-md-10">
-                        <img src="~/Content/examplePageElNino.png" runat="server" alt="1998 Single Year Baseline Model: ElNino" style ="max-width: 100%;" /> 
+                        <img src="~/Content/examplePageElNino.jpg" runat="server" alt="1998 Single Year Baseline Model: ElNino" style ="max-width: 100%;" /> 
                     </div>
                     
                     <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
+                        <img src="~/Content/examplePageKey.jpg" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
                     </div>
 
                                        
@@ -97,12 +97,12 @@
 	                          
             <div class="row">
                     <div class="col-md-10">
-                    <img src="~/Content/examplePageLaNina.png" runat="server" alt="1989 Single Year Baseline Model: LaNina" style ="max-width: 100%;" />
+                    <img src="~/Content/examplePageLaNina.jpg" runat="server" alt="1989 Single Year Baseline Model: LaNina" style ="max-width: 100%;" />
                     </div>
                     
                     <div class="col-md-2">
                         <div class="clearfix" style="height: 60px;"></div>
-                        <img src="~/Content/KeyExample.png" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
+                        <img src="~/Content/examplePageKey.jpg" runat="server" alt="Graph Key" style ="max-width: 100%; padding: 0; margin-right: 0px" />
                     </div>
 
                 <div class="row">
