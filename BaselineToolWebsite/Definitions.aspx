@@ -9,6 +9,7 @@
         <div class="col-md-2">
             <h2><%: Title %></h2>
         </div>
+        <!--  Content divided into divs according to alphabet grouping button -->
         <div class="col-md-2">
             <div class="clearfix" style="height: 25px;"></div>
             <div role="button" aria-label="A to E" class="btn btn-info" id="AE" tabindex="0" aria-pressed="false" onkeydown="showAE()" onclick="showAE(); return false;">A - E</div>
@@ -34,7 +35,7 @@
     </div>
 
     <div class="clearfix" style="height: 15px;"></div>
-
+    <!-- Content for A-E  -->
     <div id="AEText">
 
 
@@ -59,29 +60,9 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
-        <div class="clearfix" style="height: 10px;"></div>
-
-        <div class="row">
-
-            <div class="col-md-1">
-            </div>
-
-            <div class="col-md-2">
-                <h4>Average</h4>
-            </div>
-            <div class="col-md-9">
-                <p>
-                    Average temperature anomaly for each year.
-                </p>
-            </div>
-        </div>
-
-        <div class="clearfix" style="height: 10px;"></div>
-
-        <hr />
-
+        
         <div class="clearfix" style="height: 10px;"></div>
 
         <div class="row">
@@ -102,7 +83,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -116,14 +97,14 @@
                 <p>
                     Coupled Model Intercomparison Project Phase 5 is a global climate change model which is the
                     culmination of international climate research.
-                         <a href="http://climexo.knmi.nl/start.cgi?id=someone@somewhere ">DATA</a>
+                         <a href="http://cmip-pcmdi.llnl.gov/cmip5/data_portal.html">DATA</a>
                 </p>
             </div>
         </div>
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -146,7 +127,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -166,7 +147,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="row">
             <div class="col-md-1"></div>
@@ -176,6 +157,8 @@
         </div>
 
     </div>
+
+    <!--  Content for F - J -->
 
     <div id="FJText">
 
@@ -197,7 +180,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -218,7 +201,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -232,13 +215,14 @@
                 <p>
                     Global historical surface temperature anomalies from 1850 to date. Collaborative product of the Met Office 
                          Hadley Centre and the Climate Research Unit at the University of East Anglia.
-                         <a href="https://www.metoffice.gov.uk/hadobs.hadcrut4/data/current/download.html">DATA</a>
+                         <a href="http://www.metoffice.gov.uk/hadobs/hadcrut4/">DATA</a>
                 </p>
             </div>
         </div>
 
     </div>
 
+    <!-- Content for K - O  -->
 
     <div id="KOText">
 
@@ -261,7 +245,7 @@
 
         <div class="clearfix" style="height: 10px;"></div>
 
-        <hr />
+        <hr>
 
         <div class="clearfix" style="height: 10px;"></div>
 
@@ -280,6 +264,7 @@
         </div>
     </div>
 
+    <!-- Content for P - T  -->
 
     <div id="PTText">
 
@@ -314,6 +299,8 @@
         </div>
     </div>
 
+    <!-- Content for U - Z -->
+
     <div id="UZText">
 
         <div class="clearfix" style="height: 30px;"></div>
@@ -338,9 +325,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <script type="text/javascript" src="Scripts/Visualisations/Glossary.js"></script>
 </asp:Content>

@@ -5,10 +5,12 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<!-- Aria accordion mark up has been used  -->
+<!-- Tabs default to being closed  -->
 <div class ="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		<div class ="panel panel-default">
-			<div class="panel-heading" role="tab" id="exampleOne">
+			<!-- Example 1: 30 year baseline period  -->
+            <div class="panel-heading" role="tab" id="exampleOne">
 				<h4 class="panel-title">
 					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded ="false"
 						aria-controls="collapseOne">
@@ -41,7 +43,8 @@
 		</div>
         </div>
 		<div class ="panel panel-default">
-			<div class="panel-heading" role="tab" id="exampleTwo">
+			<!-- Example 2: El Nino  -->
+            <div class="panel-heading" role="tab" id="exampleTwo">
 				<h4 class="panel-title">
 					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded ="false"
 						aria-controls="collapseTwo">
@@ -84,7 +87,8 @@
 		</div>
 
         <div class ="panel panel-default">
-			<div class="panel-heading" role="tab" id="exampleThree">
+		   	<!--  Example 3: La Nina -->
+            <div class="panel-heading" role="tab" id="exampleThree">
 				<h4 class="panel-title">
 					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded ="false"
 						aria-controls="collapseTwo">
@@ -120,21 +124,14 @@
                     </div>
                 
                 </div>
-                    
-            
-        
             				
-        </div>
-			</div>
-
-
+            </div>
 
 		</div>
 
+	</div>
 
-
-
-    </div>
+  </div>
      
 </asp:Content>
 

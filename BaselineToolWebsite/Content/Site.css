@@ -13,6 +13,7 @@ body {
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 
+/*GUI text box sizes*/
 #start {
     width: 80px;
 }
@@ -29,6 +30,7 @@ body {
     width: 80px;
 }
 
+/*GUI radio buttons, align left*/
 #originalDataRadio {
     float: left
 }
@@ -37,22 +39,25 @@ body {
     float: left
 }
 
+/*GUI labels*/
 label {
     font-weight: normal
 }
 
+/*to make navbar colour white so it is more visible*/
 .navbar-inverse .navbar-nav > li > a {
     color: white;
     font-size: 20px;
 }
 
+/*to make title in navbar colour white so it is more visible*/
 .navbar-inverse .navbar-brand {
     color: white;
     font-size: 24px;
 }
 
 
-/* Responsive: Portrait tablets and up */
+/* Responsive: Portrait tablets and up (bootstrap)*/
 @media screen and (min-width: 768px) {
     .jumbotron {
         margin-top: 20px;
@@ -85,6 +90,7 @@ createdChart {
 
 }
 
+/*dislexia friendly font*/
 p {
     font-family: serif;
     font-size: 20px;
@@ -92,40 +98,3 @@ p {
 
 
 
-
-/*For Glossary*/
-
-
-
-/*
-#elNinoImg {
-    max-width: 100%;
-    height: auto;
-}
-
-#laNinaImg {
-    max-width: 100%;
-    height: auto;
-}
-
-/*
-#standardBaseline {
-   max-width: 100%;
-   height: auto;
-   float: left;
-}
-
-
-
-#elNinoText {
-    max-width: 100%;
-    height: auto;
-    float: right;
-}
-
-#standardBaseline {
-    max-width: 100%;
-    height: auto;
-}
-
-*/

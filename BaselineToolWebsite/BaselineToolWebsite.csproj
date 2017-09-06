@@ -127,15 +127,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\examplePageElNino.jpg" />
+    <Content Include="Content\examplePageKey.jpg" />
+    <Content Include="Content\examplePageLaNina.jpg" />
+    <Content Include="Content\examplePageNormal.jpg" />
     <Content Include="Definitions.aspx" />
-    <Content Include="Content\KeyExample.png" />
     <Content Include="Examples.aspx" />
     <Content Include="Content\1989LaNina.png" />
     <Content Include="Content\1961-1990baseline.png" />
     <Content Include="Content\1998ElNino.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Key.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />

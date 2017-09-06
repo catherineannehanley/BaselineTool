@@ -1,54 +1,61 @@
-﻿$(function () {
+﻿//Loads default graph on Baseline Comparison Tool page
+$(function () {
     plotAllModelData();
+    //this button should only appear when the snapshot button has been pressed
     $("#createdCharts").hide();
   });
 
+//object chart has to be global for multiple charts to load in the same div
 let chart;
 
 
+//*****************************************************DATA VALIDATION
 //Validate user data entry
 function validateBaselineEntry(baselineStart, baselineFinish) {
-    let x = document.getElementById("start").value;
-    let y = document.getElementById("finish").value;
+    //get values from "select baseline" text boxes
+    let start = document.getElementById("start").value;
+    let finish = document.getElementById("finish").value;
 
     //to ensure user provides both required values
-    if (x == "") {
+    if (start == "") {
         alert("Please enter a start year");
         return false;
     }
 
-    else if (y == "") {
+    else if (finish == "") {
         alert("Please enter a finish year");
         return false;
     }
 
     //to ensure values entered are years(numbers)        
-    else if (isNaN(x)) {
+    else if (isNaN(start)) {
         alert("Error: Input must be a number");
         return false;
     }
 
-    else if (isNaN(y)) {
+    else if (isNaN(finish)) {
         alert("Error: Input must be a number");
         return false;
     }
 
     //to ensure the start year is before the end year
-    else if (y < x) {
+    else if (finish < start) {
         alert("Error: Start year must be before finish year");
         return false;
     }
 
-    else if (x < 1900 || x > 2016) {
-        alert("Error: Start year must be between 1900 and 2016");
+    //to ensure start and finish years are between 1900 and 2017
+    else if (start < 1900 || start > 2016) {
+        alert("Error: Start year must be between 1900 and 2017");
         return false;
     }
 
-    else if (y < 1900 || y > 2099) {
-        alert("Error: Finish year must be between 1901 and 2017");
+    else if (finish < 1900 || finish > 2099) {
+        alert("Error: Finish year must be between 1900 and 2017");
         return false;
     }
 
+    //return true is validation is successful to ensure code only runs when variables are legal
     else return true;
 }
 
@@ -72,8 +79,9 @@ function validateUpdateAxis() {
 
     }
 
+    //to ensure the start year and finish year are between 1900 and 2098
     else if (x < 1900 || x > 2098) {
-        alert("Error: Start year must be between 1900 and 2090");
+        alert("Error: Start year must be between 1900 and 2098");
     }
 
     else if (y < 1900 || y > 2099) {
@@ -86,6 +94,8 @@ function validateUpdateAxis() {
 
 };
 
+//*****************************************************IMMUTABLE DATA
+//CMIP3 model data, RCP8.5. Used in prototype baselining tool. Retained in code for potential future use eg. Comparison between CMIP3 and CMIP5 
 function getCMIP3() {
     return [
         {
@@ -255,6 +265,8 @@ function getCMIP3() {
 
 }
 
+//Immutable data: CMIP5 Scenario RCP2.6 data.
+//returns data as objects and 2d arrays
 function getRCP26() {
     return [
         {
@@ -358,6 +370,8 @@ function getRCP26() {
 } 
 
 
+//Immutable data: CMIP5 Scenario RCP4.5 data.
+//returns data as objects and 2d arrays
 function getRCP45() {
     return [
 
@@ -493,6 +507,8 @@ function getRCP45() {
 }
 
 
+//Immutable data: CMIP5 Scenario RCP6.9 data.
+//returns data as objects and 2d arrays
 function getRCP60() {
     return [
         {
@@ -574,7 +590,8 @@ function getRCP60() {
     ]
 }
 
-
+//Immutable data: CMIP5 Scenario RCP8.5 data.
+//returns data as objects and 2d arrays
 function getRCP85() {
     return [
         {
@@ -700,32 +717,10 @@ function getRCP85() {
 
 
 
-//immutable data
-function getModelData() {
-
-    let modelData;
-
-        if ($("#RCP26Scenario").is(':checked')) {
-            modelData = getRCP26();
-        }
-
-        else if ($("#RCP45Scenario").is(':checked')) {
-            modelData = getRCP45();
-        }
-
-        else if ($("#RCP60Scenario").is(':checked')) {
-            modelData = getRCP60();
-        }
-
-        else {
-            modelData = getRCP85();
-        }    
 
 
-        return modelData;
-}
-
-
+//Observational data.
+//returns data as objects and 2d arrays (same format as modelData)
 function getObservedData() {
     return [
         {
@@ -743,7 +738,7 @@ function getObservedData() {
         }
         /*,
 
-     
+        CRUTEM 4 and HadSST 3 retained for potential future use
         {
             name: 'CRUTEM 4',
             data: [[1850, -0.291], [1851, -0.061], [1852, -0.166], [1853, -0.349], [1854, -0.17], [1855, -0.493], [1856, -0.533], [1857, -0.568], [1858, -0.571], [1859, -0.276], [1860, -0.714], [1861, -0.546], [1862, -0.788], [1863, -0.299], [1864, -0.828], [1865, -0.439], [1866, -0.436], [1867, -0.605], [1868, -0.413], [1869, -0.398], [1870, -0.552], [1871, -0.662], [1872, -0.365], [1873, -0.378], [1874, -0.502], [1875, -0.837], [1876, -0.488], [1877, -0.256], [1878, -0.02], [1879, -0.555], [1880, -0.375], [1881, -0.471], [1882, -0.35], [1883, -0.62], [1884, -0.729], [1885, -0.695], [1886, -0.531], [1887, -0.588], [1888, -0.618], [1889, -0.283], [1890, -0.445], [1891, -0.545], [1892, -0.634], [1893, -0.709], [1894, -0.48], [1895, -0.576], [1896, -0.39], [1897, -0.316], [1898, -0.399], [1899, -0.329], [1900, -0.183], [1901, -0.165], [1902, -0.408], [1903, -0.441], [1904, -0.536], [1905, -0.409], [1906, -0.193], [1907, -0.614], [1908, -0.459], [1909, -0.429], [1910, -0.334], [1911, -0.417], [1912, -0.439], [1913, -0.314], [1914, -0.067], [1915, -0.067], [1916, -0.345], [1917, -0.647], [1918, -0.416], [1919, -0.27], [1920, -0.247], [1921, -0.099], [1922, -0.248], [1923, -0.252], [1924, -0.308], [1925, -0.208], [1926, -0.054], [1927, -0.217], [1928, -0.144], [1929, -0.459], [1930, -0.102], [1931, -0.06], [1932, -0.069], [1933, -0.304], [1934, -0.016], [1935, -0.149], [1936, -0.099], [1937, -0.025], [1938, 0.161], [1939, 0.009], [1940, -0.033], [1941, -0.033], [1942, -0.041], [1943, 0.017], [1944, 0.115], [1945, -0.12], [1946, -0.086], [1947, -0.006], [1948, 0.001], [1949, -0.105], [1950, -0.301], [1951, -0.109], [1952, -0.06], [1953, 0.128], [1954, -0.146], [1955, -0.193], [1956, -0.427], [1957, -0.074], [1958, 0.043], [1959, 0.018], [1960, -0.07], [1961, 0.042], [1962, 0.029], [1963, 0.024], [1964, -0.286], [1965, -0.236], [1966, -0.136], [1967, -0.093], [1968, -0.209], [1969, -0.116], [1970, -0.054], [1971, -0.205], [1972, -0.23], [1973, 0.137], [1974, -0.278], [1975, -0.063], [1976, -0.353], [1977, 0.08], [1978, -0.05], [1979, 0.039], [1980, 0.13], [1981, 0.306], [1982, -0.02], [1983, 0.318], [1984, -0.044], [1985, -0.04], [1986, 0.11], [1987, 0.263], [1988, 0.364], [1989, 0.237], [1990, 0.493], [1991, 0.384], [1992, 0.089], [1993, 0.17], [1994, 0.333], [1995, 0.57], [1996, 0.226], [1997, 0.495], [1998, 0.843], [1999, 0.563], [2000, 0.478], [2001, 0.682], [2002, 0.778], [2003, 0.775], [2004, 0.674], [2005, 0.881], [2006, 0.823], [2007, 0.914], [2008, 0.694], [2009, 0.746], [2010, 0.915], [2011, 0.71], [2012, 0.767], [2013, 0.822], [2014, 0.86], [2015, 1.153], [2016, 1.24], [2017, 1.365]]
@@ -756,10 +751,9 @@ function getObservedData() {
     ];
 };
 
-//funtion getCoverageAdjustedData
 
-
-//funtional programming functions
+//method to return observational data that defaults to not plotting. Allows user to easily add these series.
+//used in plotSpaghettiModel 
 function getInvisibleObservedData(observedData) {
     return observedData.map(function (dataPoint) {
         return {
@@ -768,18 +762,19 @@ function getInvisibleObservedData(observedData) {
     });
 }
 
-
+//*****************************************************STANDARD DEVIATION
+//for use in uncertainty
 function standardDeviation(temperaturesForYear) {
     //--CALCULATE AVAREGE--
     let total = 0;
-    for (var key in temperaturesForYear)
+    for (let key in temperaturesForYear)
         total += temperaturesForYear[key];
     let meanVal = total / temperaturesForYear.length;
     //--CALCULATE AVAREGE--
 
     //--CALCULATE STANDARD DEVIATION--
     let SDprep = 0;
-    for (var key in temperaturesForYear)
+    for (let key in temperaturesForYear)
         SDprep += Math.pow((parseFloat(temperaturesForYear[key]) - meanVal), 2);
     let SDresult = Math.sqrt(SDprep / temperaturesForYear.length);
     //--CALCULATE STANDARD DEVIATION--
@@ -787,23 +782,10 @@ function standardDeviation(temperaturesForYear) {
 }
 
 
-function getModelDataRanges(modelData) {
+//*****************************************************DATA TRANSFORMATION: FUNCTIONAL PROGRAMMING
 
-    let uncertainty;
-
-    if ($("#95PercentCertainty").is(':checked')) {
-        uncertainty = getModelData95PercentCertainty(modelData);
-    }
-
-    else if ($("#maxMinSpread").is(':checked')) {
-        uncertainty = getModelDataSpread(modelData);
-    }
-
-    return uncertainty;
-};
-
-
-//function to compute 95% Certainty
+//Option for "uncertainty"
+//function to compute 95% Confidence Interval
 function getModelData95PercentCertainty(modelData) {
     //make array of years in ensembleData for x axis.
     //.concat to merge arrays so there is only 1 instance of each year in array
@@ -830,13 +812,14 @@ function getModelData95PercentCertainty(modelData) {
         return [year, lowerBandAnomaly, upperBandAnomaly];
     });
 
+    //returns in format compatible with Highcharts
     return [{
         name: "CMIP5: Uncertainty",
         data: yearlyRanges,
         type: 'arearange',
         //linkedTo: ':previous',
         fillOpacity: 0.3,
-        color: "lightBlue",
+        color: "steelblue",
         zIndex: 0,
         marker: {
             enabled: false
@@ -844,7 +827,8 @@ function getModelData95PercentCertainty(modelData) {
     }];
 }
 
-//function to compute maximum and minimum temperature anomaly values for each year
+//Option for "uncertainty"
+//function to compute Spread (maximum and minimum temperature anomaly values for each year)
 function getModelDataSpread(modelData) {
 
     //make array of years in ensembleData for x axis
@@ -871,7 +855,7 @@ function getModelDataSpread(modelData) {
         data: yearlyRanges,
         type: 'arearange',
         fillOpacity: 0.3,
-        color: "lightBlue",
+        color: "steelblue",
         zIndex: 0,
         marker: {
             enabled: false
@@ -947,6 +931,7 @@ function getBaselinedModelData(modelData, baselineStart, baselineFinish) {
     }
 }
 
+//function to baseline observational data based on values entered into baseline selector GUI
 function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
 
     if (validateBaselineEntry(baselineStart, baselineFinish) === true) {
@@ -985,20 +970,27 @@ function getBaselinedObservedData(observedData, baselineStart, baselineFinish) {
 }
 
 
-
+//*****************************************************FUNCTIONS TO PLOT TRANSFORMED DATA
 
 //to plot all data (combining functions)
 function plotAllModelData() {
+    //get select baseline start and finish years from the GUI
     let baselineStart = document.getElementById("start").value;
     let baselineFinish = document.getElementById("finish").value;
+    //create chart title
     let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
+    //get model Data corresponding to RCP Scenario selected in the GUI
     let modelData = getModelData();
+    //compute average temperature anomaly per year
     let modelDataAverages = getModelDataAverages(modelData);
+    //compute range temperature anomaly per year
     let modelDataRanges = getModelDataRanges(modelData);
-    //let observedData = getInvisibleObservedData(getObservedData());
+    //get observed data
     let observedData = getObservedData();
+    //combine all data using .concat to be used in plotModelData()
     let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);
     plotModelData(combinedData, modelDataChartTitle);
+    //retuns these interactive settings to null so graph defaults to same format each time
     $('#presentation').prop('disabled', true);
     $('highlightBaseline').attr('checked', false);
     $('#startZoom').val("");
@@ -1006,109 +998,138 @@ function plotAllModelData() {
 };
 
 function plotBaselinedModelData() {
+    //get select baseline start and finish years from the GUI
     let baselineStart = document.getElementById("start").value;
     let baselineFinish = document.getElementById("finish").value;
+    //create chart title
     let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
+    //transform data according to baseline start and finish years from the GUI
     let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish);
+    //compute average temperature anomaly per year
     let modelDataAverages = getModelDataAverages(baselinedModelData);
+    //compute range temperature anomaly per year
     let modelDataRanges = getModelDataRanges(baselinedModelData);
     let observedData = getBaselinedObservedData(getObservedData(), baselineStart, baselineFinish);
+    //combine all data using .concat to be used in plotModelData()
     let combinedData = modelDataAverages.concat(modelDataRanges).concat(observedData);
     plotModelData(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
+    //chart title will be red if a single year baseline is used
     getChartTitleColor(modelDataChartTitle);
+    //retuns these interactive settings to null so graph defaults to same format each time
     $('#highlightBaseline').attr('checked', false);
     $('#startZoom').val("");
     $('#finishZoom').val("");
     $('#presentation').prop('disabled', false);
 };
 
+//to plot Spaghetti model data (raw data can be seen as well as summaries provided by average and range)
 function plotSpaghettiData() {
+    //get model Data corresponding to RCP Scenario selected in the GUI
     let modelData = getModelData();
+    //compute average values per year
     let modelDataAverages = getModelDataAverages(modelData);
+    //compute range values per year
     let modelDataRanges = getModelDataRanges(modelData);
+    //observed data defaults to being invisible
     let modelObservedData = getInvisibleObservedData(getObservedData());
 
-    let x = modelData.map(function (dataPoint) {
+
+    //ensemble data
+    let ensembles = modelData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 0.5, showInLegend: false
         };
     });
 
-    let y = modelDataAverages.map(function (dataPoint) {
+    //average values
+    let average = modelDataAverages.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 1.5, color: 'red'
         };
     });
 
-    let z = modelDataRanges.map(function (dataPoint) {
+    //range values
+    let range = modelDataRanges.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0
         };
     });
 
-    let w = modelObservedData.map(function (dataPoint) {
+    //observational data (invisible)
+    let observed = modelObservedData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, visible: false
         };
     });
 
-    let combinedData = x.concat(y).concat(z).concat(w);
+    //combine all using .concat()
+    let combinedData = ensembles.concat(average).concat(range).concat(observed);
 
+    //plot spaghetti model
     plotSpaghettiModel(combinedData);
 
 };
 
-
+//function to plot baselined spaghetti model data
 function plotBaselinedSpaghettiModelData() {
+    //get select baseline start and finish years from the GUI
     let baselineStart = document.getElementById("start").value;
     let baselineFinish = document.getElementById("finish").value;
+    //get baselined model data for corresponding RCP Scenario in GUI 
     let baselinedModelData = getBaselinedModelData(getModelData(), baselineStart, baselineFinish)
+    //get observed data
     let observedData = getObservedData();
 
+    //get average values
     let modelDataAverages = getModelDataAverages(baselinedModelData);
+    //get range values
     let modelDataRanges = getModelDataRanges(baselinedModelData);
+    //get observed data (defaults to invisible)
     let modelObservedData = getInvisibleObservedData(getBaselinedObservedData(observedData, baselineStart, baselineFinish));
-
+    //get chart title
     let modelDataChartTitle = getModelDataChartTitle(baselineStart, baselineFinish);
 
 
 
-    let x = baselinedModelData.map(function (dataPoint) {
+    let baselinedEnsembles = baselinedModelData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 0.5, showInLegend: false
         };
     });
 
-    let y = modelDataAverages.map(function (dataPoint) {
+    let average = modelDataAverages.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, lineWidth: 1.5, color: 'red'
         };
     });
 
-    let z = modelDataRanges.map(function (dataPoint) {
+    let range = modelDataRanges.map(function (dataPoint) {
         return {
-            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0, color: 'lightBlue'
+            name: dataPoint.name, data: dataPoint.data, type: 'arearange', fillOpacity: 0.1, zIndex: 0, color: 'steelblue'
         };
     });
 
-    let w = modelObservedData.map(function (dataPoint) {
+    let observed = modelObservedData.map(function (dataPoint) {
         return {
             name: dataPoint.name, data: dataPoint.data, visible: false
         };
     });
 
-    let combinedData = x.concat(y).concat(z).concat(w);
+    let combinedData = baselinedEnsembles.concat(average).concat(range).concat(observed);
 
+    //plot baselined spaghetti model
     plotSpaghettiModel(combinedData, modelDataChartTitle, baselineStart, baselineFinish);
+    //if single year baseline is selected, change chart title colour to red
     getChartTitleColor(modelDataChartTitle);
 
 };
 
 
-
-//interactive visualisation functions
+//*****************************************************INTERACTIVE VISUALISATION FUNCTIONS
+//to update chart title according to data plotted
 function getModelDataChartTitle(baselineStart, baselineFinish) {
 
+    //to ensure chart title references the correct scenario
     let scenario
 
     if ($("#RCP26Scenario").is(':checked')) {
@@ -1133,31 +1154,34 @@ function getModelDataChartTitle(baselineStart, baselineFinish) {
 
     let modelDataChartTitle
 
+    //corresponding chart titles based on data entry
+    //if x is null, RCP8.5 is displayed as default
     if (x === "") {
 
         modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >'
     }
 
+    //single year baseline
     else if (x === y) {
 
         modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >' + '<span data- toggle="tooltip" title= "Period of reference used to define average climate." data- placement="bottom" > : Single Year Baseline </span >' + x;
     }
 
+    //standard format of chart titles        
     else {
 
         modelDataChartTitle = '<span data- toggle="tooltip" title= "Climate model scenario." data- placement="bottom" >' + scenario + '</span >' + '<span data- toggle="tooltip" title= "Period of reference used to define average climate." data- placement="bottom" > : Baseline </span >' + x + " to " + y;
     }
 
+    //returns modelDataChartTitle to use as an argument in plotChart() methods
     return modelDataChartTitle;
 };
 
 
-
-
-
-
+//change chart title colour based on baseline years selected.
 function getChartTitleColor(modelDataChartTitle) {
     let = thisTitle = modelDataChartTitle.toString()
+    //if the chart title is "Single Year Baseline", update the chart title colour to red
     check = "Single Year Baseline"
 
     if (thisTitle.includes(check)) {
@@ -1168,20 +1192,11 @@ function getChartTitleColor(modelDataChartTitle) {
 
 };
 
+//zoom function using Edit Graph section of GUI.
 function getUpdatedXAxis() {
     let xAxisStart = document.getElementById("startZoom").value;
     let xAxisFinish = document.getElementById("finishZoom").value;
-
-    /*
-
-        if (xAxisStart === "") {
-            xAxisStart = 1900
-        }
-
-        if (xAxisFinish === "") {
-            xAxisFinish = 2099
-        } */
-
+    //update the x axis according to values entered in text box
     if (validateUpdateAxis() == "true") {
         chart.xAxis[0].update({
             min: xAxisStart,
@@ -1190,8 +1205,56 @@ function getUpdatedXAxis() {
     }
 }
 
-//jQuery
 
+
+//*****************************************************JQUERY FUNCTIONS FOR GUI
+
+//method to caluclate uncertainty option corresponding to radio button in GUi
+function getModelDataRanges(modelData) {
+
+    let uncertainty;
+    //if the radio button "95% Confidence" is checked
+    if ($("#95PercentCertainty").is(':checked')) {
+        uncertainty = getModelData95PercentCertainty(modelData);
+    }
+
+    //if the radio button "Spread" is checked
+    else if ($("#maxMinSpread").is(':checked')) {
+        uncertainty = getModelDataSpread(modelData);
+    }
+
+    return uncertainty;
+};
+
+//method to access imutable data. JQuery used to determine which radio button is selected
+//and returns the corresponding data as "modelData""
+function getModelData() {
+
+    let modelData;
+
+    if ($("#RCP26Scenario").is(':checked')) {
+        modelData = getRCP26();
+    }
+
+    else if ($("#RCP45Scenario").is(':checked')) {
+        modelData = getRCP45();
+    }
+
+    else if ($("#RCP60Scenario").is(':checked')) {
+        modelData = getRCP60();
+    }
+
+    //RCP8.5 is the default scenario selected
+    else {
+        modelData = getRCP85();
+    }
+
+
+    return modelData;
+}
+
+
+//highlight baseline function (edit graph in GUI)
 $(document).ready(function () {
 
     $('#highlightBaseline').click(function () {
@@ -1307,22 +1370,32 @@ $(document).ready(function () {
             );
         }
         
-
+        //update x axis of plotted graph when highlightBaseline check box is ticked
         chart.xAxis[0].update({ plotLines: plotLines });
     });
 });
 
-$(document).ready(function () {
 
+
+//compare function
+$(document).ready(function () {
+    //when the create snapshot button is fixed
     $('#createSnapshot').click(function () {
 
+        //make corresponding div visible
         $("#createdCharts").show();
 
+        //options for converting highcharts chart into an SVG for display
         let svgOptions = {
             chart: {
                 height: 400,
                 width: 570
             },
+
+            title: {
+                align: "left"
+            }, 
+
             xAxis: {
                 title: {
                     style: { "color": "#ffffff" }
@@ -1337,27 +1410,34 @@ $(document).ready(function () {
                 }
             }
         };
+        //add snapshots one after another as they are created
+        //created snapshots have an "X" in the corner 
         $('#snapshots').append('<div class="col-md-6" style="text-align: left;"><span class="close">X</span>' + chart.getSVG(svgOptions) + '</div>');
     })
 });
 
+//function for "X" in corner of snapshot objects so they can be closed individually
 $(document).on('click', '.close', function () {
+    //remove from parent
     $(this).parent().remove();
+    //if the last snapshot is closed, hide the created charts button
     if ($('.close').length == 0) {
         $("#createdCharts").hide();
     }
 });
 
+//function to clear all snapshots at once
 $(document).ready(function () {
     $('#clearSnapshot').click(function () {
         $('#snapshots').empty()
         $("#createdCharts").hide();
         history.replaceState({}, '', '/');
+        //move to top of page
         toTop();
-
     });
 });
 
+//function to scroll to top of web page when called
 function toTop() {
     if ($(document).scrollTop != 0) {
         $('html, body').animate({ scrollTop: 0 }, 1000);
@@ -1378,9 +1458,9 @@ $('#finish').focus(
         this.value = '';
     });
 
+//*****************************************************HIGHCHARTS CHART CREATION FUNCTIONS
 
-
-//Highcharts chart creation
+//Highcharts chart creation: CMIP5 Model
 function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
 
     getChartTitleColor(modelDataChartTitle);
@@ -1391,6 +1471,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
             zoomType: 'xy'
         },
 
+        //use html enables tooltip functionality
         title: {
             text: '<span data-toggle="tooltip" title="Informed by actual temperature records." data-placement="bottom">Observational Data </span>' + '<span data-toggle="tooltip" title="Global climate change model." data-placement="bottom">and CMIP5 </span>' + modelDataChartTitle,
             useHTML: true,            
@@ -1412,6 +1493,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
                 text: 'Year'
             },
 
+            //set axis so aspect ratio of graphs remains constant
             min: 1900,
 
             max: 2099,
@@ -1438,6 +1520,7 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
                 useHTML: true,
             },
 
+            //set axis so aspect ratio of graphs remains constant
             max: 6,
             min: -2
 
@@ -1475,6 +1558,8 @@ function plotModelData(modelData, modelDataChartTitle, baselineStart, baselineFi
     });
 };
 
+
+//Highcharts chart creation: Spaghetti Model
 function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, baselineFinish) {
 
     getChartTitleColor(modelDataChartTitle)
@@ -1502,6 +1587,7 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
                 text: 'Year'
             },
 
+            //set axis so aspect ratio of graphs remains constant
             min: 1900,
 
             max: 2099,
@@ -1528,6 +1614,7 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
                 useHTML: true,
             },
 
+            //set axis so aspect ratio of graphs remains constant
             max: 6,
             min: -2
         },
@@ -1543,15 +1630,7 @@ function plotSpaghettiModel(modelData, modelDataChartTitle, baselineStart, basel
             y: 25
         },
 
-        /*tooltip: {
-            crosshairs: true,
-            shared: true,
-            valueDecimals: 2,
-            valueSuffix: '°C'
-        },*/
-
-
-
+       
         plotOptions: {
             //To set scale on xAxis from 1990
             series: {
